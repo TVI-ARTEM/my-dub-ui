@@ -15,8 +15,8 @@ export class ProjectServiceApi {
         } as CreateFolderRequest, $projects_api_host);
     }
 
-    public static async removeFolder(path: string) {
-        return ProjectService.deleteApiFolders(getLogin(), path, $projects_api_host);
+    public static async removeFolder(folderId: number) {
+        return ProjectService.deleteApiFolders(folderId, $projects_api_host);
     }
 
     public static async uploadFile(path: string, selectedFile: File) {

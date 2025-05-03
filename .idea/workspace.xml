@@ -5,27 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.local" beforeDir="false" afterPath="$PROJECT_DIR$/.env.local" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/core/ApiError.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/core/ApiRequestOptions.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/core/ApiResult.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/core/CancelablePromise.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/core/OpenAPI.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/core/request.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/models/CreateUserResponse.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/models/LoginResponse.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/AuthService.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/AuthServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/AuthServiceApi.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/react.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/login_page/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/login_page/LoginPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/projects/models/RenameFolderRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/models/RenameFolderRequest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stores/useAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/useAuth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +78,7 @@
       <updated>1746103090135</updated>
       <workItem from="1746103092582" duration="30141000" />
       <workItem from="1746215449493" duration="2971000" />
-      <workItem from="1746266318221" duration="14057000" />
+      <workItem from="1746266318221" duration="16138000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />

@@ -52,23 +52,21 @@ export class ProjectService {
     }
 
     /**
-     * @param login
-     * @param path
+     * @param folderId
+     *
      * @param client
      * @returns any OK
      * @throws ApiError
      */
     public static deleteApiFolders(
-        login: string,
-        path: string,
+        folderId: number,
         client: AxiosInstance
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/api/folders',
             query: {
-                'login': login,
-                'path': path,
+                'folderId': folderId,
             },
         }, client);
     }

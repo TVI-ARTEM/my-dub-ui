@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type RenameFolderRequest = {
-    login: string;
-    path: string;
+    folderId: number;
     newName: string;
 };
 
