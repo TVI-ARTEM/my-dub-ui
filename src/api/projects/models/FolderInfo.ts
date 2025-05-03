@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type FolderDto = {
+export type FolderInfo = {
     id?: number;
     name?: string | null;
+    modifiedAt?: string;
 };
 

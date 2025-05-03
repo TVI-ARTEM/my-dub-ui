@@ -8,8 +8,10 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { CreateFolderRequest } from './models/CreateFolderRequest';
-export type { FolderDto } from './models/FolderDto';
+export type { FolderInfo } from './models/FolderInfo';
 export type { FolderResponse } from './models/FolderResponse';
+export type { ProjectInfo } from './models/ProjectInfo';
 export type { RenameFolderRequest } from './models/RenameFolderRequest';
+export type { SegmentInfo } from './models/SegmentInfo';
 
 export { ProjectService } from './services/ProjectService';

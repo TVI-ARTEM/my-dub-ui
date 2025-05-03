@@ -14,13 +14,13 @@ export class ProjectService {
     /**
      * @param requestBody
      * @param client
-     * @returns FolderResponse OK
+     * @returns any OK
      * @throws ApiError
      */
     public static postApiFolders(
         requestBody: CreateFolderRequest,
         client: AxiosInstance
-    ): CancelablePromise<FolderResponse> {
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/folders',
@@ -53,7 +53,6 @@ export class ProjectService {
 
     /**
      * @param folderId
-     *
      * @param client
      * @returns any OK
      * @throws ApiError
@@ -74,13 +73,13 @@ export class ProjectService {
     /**
      * @param requestBody
      * @param client
-     * @returns FolderResponse OK
+     * @returns any OK
      * @throws ApiError
      */
     public static putApiFoldersRename(
         requestBody: RenameFolderRequest,
         client: AxiosInstance
-    ): CancelablePromise<FolderResponse> {
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/folders/rename',
