@@ -31,7 +31,7 @@ export default function LoginPage() {
                 const res = await auth();
 
                 if (res) {
-                    navigate("/", {replace: true})
+                    navigate("/dashboard", {replace: true})
                 }
             }
         )()

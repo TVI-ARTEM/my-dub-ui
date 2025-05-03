@@ -30,6 +30,8 @@ export const useAuth = create<AuthState>((set) => ({
         try {
             const token = getToken()
 
+            console.log('token', token)
+
             if (!token) {
                 return false;
             }
@@ -48,6 +50,8 @@ export const useAuth = create<AuthState>((set) => ({
     signOut: () => {
         clearToken()
         clearLogin()
+
+        console.log(getToken())
         set({token: null, login: null})
     },
 }))

@@ -1,11 +1,16 @@
 import {useAuth} from "../../../stores/useAuth.ts";
 import {Dialog, DialogBackdrop, DialogPanel, DialogTitle} from "@headlessui/react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import {PhotoIcon} from "@heroicons/react/24/solid";
+import {ProjectServiceApi} from "../../../api/services/ProjectServiceApi.ts";
+import {FolderResponse} from "../../../api/projects";
+import {useNavigate} from "react-router-dom";
+import {AxiosError} from "axios";
+import React from "react";
 
 const folderSchema = z.object({
     folderName: z.string().trim().min(3, 'Минимум 3 символа')
@@ -20,6 +25,7 @@ type FormProjectData = z.infer<typeof projectSchema>
 
 export default function MainPage() {
     const {
+        reset: resetFolderValues,
         register: createFolderRegister,
         handleSubmit: handleCreateFolder,
         formState: {errors: folderErrors, isSubmitting: folderIsSubmitting},
@@ -31,33 +37,109 @@ export default function MainPage() {
         formState: {errors: projectErrors, isSubmitting: projectIsSubmitting},
     } = useForm<FormProjectData>({resolver: zodResolver(projectSchema)})
 
+    const currentPath = decodeURIComponent(
+        location.pathname.replace(/^\/dashboard\/?/, '').trim()
+    )
+
     const {signOut, login} = useAuth()
     const [projectOpen, setProjectOpen] = useState(false)
     const [folderOpen, setFolderOpen] = useState(false)
-    const [apiError, setApiError] = useState('')
+    const [folderApiError, setFolderApiError] = useState('')
+    const [projectApiError, setProjectApiError] = useState('')
 
+    const [currFolder, setCurrFolder] = useState<FolderResponse>({})
+
+    const [mediaOpen, setMediaOpen] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [mediaError, setMediaError] = useState("");
+
+    const navigate = useNavigate()
+
+    const onSubmitMedia = async () => {
+        if (!selectedFile) {
+            setMediaError("Выберите файл.");
+            return;
+        }
+        setMediaError("");
+        try {
+            await ProjectServiceApi.uploadFile(currentPath, selectedFile)
+
+            toast.success("Медиа загружено");
+            setMediaOpen(false);
+            setSelectedFile(null);
+        } catch (e: any) {
+            console.log(e.body)
+            setMediaError(e.message);
+        }
+    };
+
+    const refreshFolder = async () => {
+        try {
+            const result = await ProjectServiceApi.getFolders(currentPath);
+
+            setCurrFolder(result)
+
+        } catch (error: any) {
+            if (error.code !== AxiosError.ERR_NETWORK) {
+                toast.error(error.message)
+
+                navigate('/')
+            }
+        }
+    }
+
+    const onCrumbClick = (idx: number) => {
+        if (idx === -1) {
+            navigate('/dashboard')
+        } else {
+            const parts = currentPath.split('/')
+            const newPath = parts.slice(0, idx + 1).join('/')
+            navigate(`/dashboard/${encodeURIComponent(newPath)}`)
+        }
+    }
+
+    useEffect(() => {
+        (async function () {
+                await refreshFolder()
+            }
+        )()
+    }, [currentPath, navigate]);
 
     const onCreateFolder = async (data: FormFolderData) => {
-        setApiError('')
+        setFolderApiError('')
         try {
-            toast.success(`Folder created ${data.folderName}`)
-            // await signIn(data.username, data.password)
+            await ProjectServiceApi.createFolder(data.folderName, currFolder?.id ?? null)
 
-            // navigate("/", {replace: true})
+            await refreshFolder()
+
+            resetFolderValues({folderName: ""})
+
+            setFolderOpen(false)
+
         } catch (e: any) {
-            setApiError(e?.body ?? "Ошибка входа")
+            setFolderApiError(e?.body ?? "Ошибка при создании")
+        }
+    }
+
+    const onRemoveFolder = async (path: string) => {
+        try {
+            await ProjectServiceApi.removeFolder(path)
+
+            await refreshFolder()
+
+            toast.success("Папка удалена")
+
+        } catch {
+            toast.error("Ошибка удаления")
         }
     }
 
     const onCreateProject = async (data: FormProjectData) => {
-        setApiError('')
+        setProjectApiError('')
         try {
             toast.success(`Project created ${data.projectName}`)
-            // await signIn(data.username, data.password)
-
-            // navigate("/", {replace: true})
         } catch (e: any) {
-            setApiError(e?.body ?? "Ошибка входа")
+            setProjectApiError(e?.body ?? "Ошибка при создании")
         }
     }
 
@@ -88,65 +170,154 @@ export default function MainPage() {
                 </div>
 
                 <div className="relative flex h-16 items-center justify-between">
-                    <div className="flex flex-1 items-center">
-
-                        <nav className="flex mb-4" aria-label="Breadcrumb">
-                            <ol className="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
-                                <li className="inline-flex items-center">
-
-                                    <a href="/"
-                                       className="inline-flex items-center text-lg font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                                        <svg className="w-4 h-4 me-2.5" aria-hidden="true"
-                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
-                                        </svg>
-                                        Главная
-                                    </a>
-                                </li>
-                            </ol>
-                        </nav>
-
-                    </div>
-                    <div className="flex items-center justify-center">
-
+                    <nav className="flex items-center space-x-2 text-gray-600">
+                        <button onClick={() => onCrumbClick(-1)} className="hover:text-blue-500">Главная</button>
+                        {currentPath && currentPath.split('/').map((seg, i) => (
+                            <React.Fragment key={i}>
+                                <span>/</span>
+                                <button
+                                    onClick={() => onCrumbClick(i)}
+                                    className="hover:text-blue-500"
+                                >
+                                    {seg}
+                                </button>
+                            </React.Fragment>
+                        ))}
+                    </nav>
+                    <div className="flex space-x-3">
+                        {
+                            (currFolder?.children && currFolder.children.length > 0) && (
+                                <>
+                                    <button
+                                        onClick={() => setProjectOpen(true)}
+                                        className="px-4 py-2 text-white font-medium bg-gray-900 border border-gray-500 rounded hover:bg-gray-800"
+                                    >
+                                        Новый проект
+                                    </button>
+                                    <button
+                                        onClick={() => setFolderOpen(true)}
+                                        className="px-4 py-2 bg-white border font-medium border-gray-500 rounded hover:bg-gray-50"
+                                    >
+                                        Новая папка
+                                    </button>
+                                    <button
+                                        onClick={() => setMediaOpen(true)}
+                                        className="px-4 py-2 bg-white border border-gray-200 rounded hover:bg-gray-50"
+                                    >
+                                        Загрузить медиа
+                                    </button>
+                                </>
+                            )
+                        }
                     </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-5" style={{flexGrow: 1}}>
-                    <div
-                        onClick={() => setFolderOpen(true)}
-                        className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center hover:bg-gray-50">
-                        <svg className="w-42 h-42 text-gray-800 dark:text-white" aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="transparent"
-                             viewBox="0 0 24 24">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                  d="M13.5 8H4m0-2v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/>
-                        </svg>
+                <>
+                    {
+                        (currFolder?.children && currFolder.children.length > 0) && (
+                            <div className="grid gap-6" style={{gridTemplateColumns: "repeat(8, minmax(126px, 1fr))"}}>
+                                {
+                                    currFolder.children.map((item) => (
+                                        <div className={"flex flex-col"}>
+                                            <div
+                                                key={item.id}
+                                                onClick={() => {
+                                                    const path = `/dashboard/${currFolder.path ? currFolder.path + "/" : ""}${item.name}`
+
+                                                    navigate(path)
+                                                }}
+                                                className="min-w-[126px] p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center hover:bg-gray-50">
 
 
-                        <p className="text-xl mb-3 font-normal text-gray-900 dark:text-gray-400">Новая папка</p>
-
-                    </div>
-
-
-                    <div
-                        onClick={() => setProjectOpen(true)}
-                        className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center hover:bg-gray-50">
-
-                        <svg className="w-42 h-42 text-gray-800 dark:text-white" aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56">
-                            <path
-                                d="M 24.5898 49.5742 C 25.5508 49.5742 26.2539 48.8477 26.2539 47.9336 L 26.2539 8.0664 C 26.2539 7.1524 25.5508 6.4258 24.5898 6.4258 C 23.6524 6.4258 22.9492 7.1524 22.9492 8.0664 L 22.9492 47.9336 C 22.9492 48.8477 23.6524 49.5742 24.5898 49.5742 Z M 38.2305 44.8867 C 39.1680 44.8867 39.8711 44.1367 39.8711 43.2227 L 39.8711 12.7773 C 39.8711 11.8633 39.1680 11.1133 38.2305 11.1133 C 37.2930 11.1133 36.5664 11.8633 36.5664 12.7773 L 36.5664 43.2227 C 36.5664 44.1367 37.2930 44.8867 38.2305 44.8867 Z M 17.7930 41.0898 C 18.7305 41.0898 19.4336 40.3633 19.4336 39.4492 L 19.4336 16.5508 C 19.4336 15.6367 18.7305 14.9102 17.7930 14.9102 C 16.8320 14.9102 16.1289 15.6367 16.1289 16.5508 L 16.1289 39.4492 C 16.1289 40.3633 16.8320 41.0898 17.7930 41.0898 Z M 31.4102 38.5586 C 32.3476 38.5586 33.0742 37.8320 33.0742 36.9180 L 33.0742 19.0820 C 33.0742 18.1680 32.3476 17.4414 31.4102 17.4414 C 30.4727 17.4414 29.7695 18.1680 29.7695 19.0820 L 29.7695 36.9180 C 29.7695 37.8320 30.4727 38.5586 31.4102 38.5586 Z M 45.0508 34.3633 C 45.9883 34.3633 46.6914 33.6133 46.6914 32.6992 L 46.6914 23.3008 C 46.6914 22.3867 45.9883 21.6367 45.0508 21.6367 C 44.0898 21.6367 43.3867 22.3867 43.3867 23.3008 L 43.3867 32.6992 C 43.3867 33.6133 44.0898 34.3633 45.0508 34.3633 Z M 10.9727 32.5117 C 11.9102 32.5117 12.6133 31.7851 12.6133 30.8711 L 12.6133 25.1289 C 12.6133 24.2149 11.9102 23.4883 10.9727 23.4883 C 10.0117 23.4883 9.3086 24.2149 9.3086 25.1289 L 9.3086 30.8711 C 9.3086 31.7851 10.0117 32.5117 10.9727 32.5117 Z"/>
-                        </svg>
+                                                <svg
+                                                    className="w-[75%] h-[75%] min-w-[128px] min-h-[128px] text-gray-800 dark:text-white"
+                                                    aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="transparent"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
+                                                          strokeWidth="2"
+                                                          d="M13.5 8H4m0-2v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/>
+                                                </svg>
 
 
-                        <p className="text-xl mb-3 font-normal text-gray-900 dark:text-gray-400">Новый проект</p>
-
-                    </div>
+                                                <p className="text-xl mb-3 font-normal text-wrap text-gray-900 dark:text-gray-50">{item.name}</p>
 
 
-                </div>
+                                            </div>
+
+                                            <div
+                                                className="min-w-[126px] px-6 py-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center gap-2">
+                                                <svg
+                                                    className="w-6 h-6 text-gray-800 dark:text-white hover:text-blue-400"
+                                                    // onClick={() => onRemoveFolder(`${currFolder.path ? currFolder.path + "/" : ""}${item.name}`)}
+                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round"
+                                                          strokeLinejoin="round" strokeWidth="2"
+                                                          d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                                </svg>
+
+                                                <svg
+                                                    className="w-6 h-6 text-gray-800 dark:text-white hover:text-red-400"
+                                                    onClick={() => onRemoveFolder(`${currFolder.path ? currFolder.path + "/" : ""}${item.name}`)}
+                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round"
+                                                          strokeLinejoin="round" strokeWidth="2"
+                                                          d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                    ))
+                                }
+                            </div>
+                        )
+                    }
+                </>
+
+                <>
+                    {(currFolder?.children?.length ?? 0) === 0 && (
+                        <div className="flex items-center justify-center gap-5" style={{flexGrow: 1}}>
+                            <div
+                                onClick={() => setFolderOpen(true)}
+                                className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center hover:bg-gray-50">
+                                <svg className="w-42 h-42 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="transparent"
+                                     viewBox="0 0 24 24">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
+                                          strokeWidth="2"
+                                          d="M13.5 8H4m0-2v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/>
+                                </svg>
+
+
+                                <p className="text-xl mb-3 font-normal text-gray-900 dark:text-gray-50">Новая папка</p>
+
+                            </div>
+
+
+                            <div
+                                onClick={() => setProjectOpen(true)}
+                                className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center hover:bg-gray-50">
+
+                                <svg className="w-42 h-42 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56">
+                                    <path
+                                        d="M 24.5898 49.5742 C 25.5508 49.5742 26.2539 48.8477 26.2539 47.9336 L 26.2539 8.0664 C 26.2539 7.1524 25.5508 6.4258 24.5898 6.4258 C 23.6524 6.4258 22.9492 7.1524 22.9492 8.0664 L 22.9492 47.9336 C 22.9492 48.8477 23.6524 49.5742 24.5898 49.5742 Z M 38.2305 44.8867 C 39.1680 44.8867 39.8711 44.1367 39.8711 43.2227 L 39.8711 12.7773 C 39.8711 11.8633 39.1680 11.1133 38.2305 11.1133 C 37.2930 11.1133 36.5664 11.8633 36.5664 12.7773 L 36.5664 43.2227 C 36.5664 44.1367 37.2930 44.8867 38.2305 44.8867 Z M 17.7930 41.0898 C 18.7305 41.0898 19.4336 40.3633 19.4336 39.4492 L 19.4336 16.5508 C 19.4336 15.6367 18.7305 14.9102 17.7930 14.9102 C 16.8320 14.9102 16.1289 15.6367 16.1289 16.5508 L 16.1289 39.4492 C 16.1289 40.3633 16.8320 41.0898 17.7930 41.0898 Z M 31.4102 38.5586 C 32.3476 38.5586 33.0742 37.8320 33.0742 36.9180 L 33.0742 19.0820 C 33.0742 18.1680 32.3476 17.4414 31.4102 17.4414 C 30.4727 17.4414 29.7695 18.1680 29.7695 19.0820 L 29.7695 36.9180 C 29.7695 37.8320 30.4727 38.5586 31.4102 38.5586 Z M 45.0508 34.3633 C 45.9883 34.3633 46.6914 33.6133 46.6914 32.6992 L 46.6914 23.3008 C 46.6914 22.3867 45.9883 21.6367 45.0508 21.6367 C 44.0898 21.6367 43.3867 22.3867 43.3867 23.3008 L 43.3867 32.6992 C 43.3867 33.6133 44.0898 34.3633 45.0508 34.3633 Z M 10.9727 32.5117 C 11.9102 32.5117 12.6133 31.7851 12.6133 30.8711 L 12.6133 25.1289 C 12.6133 24.2149 11.9102 23.4883 10.9727 23.4883 C 10.0117 23.4883 9.3086 24.2149 9.3086 25.1289 L 9.3086 30.8711 C 9.3086 31.7851 10.0117 32.5117 10.9727 32.5117 Z"/>
+                                </svg>
+
+
+                                <p className="text-xl mb-3 font-normal text-gray-900 dark:text-gray-50">Новый проект</p>
+
+                            </div>
+
+
+                        </div>
+
+                    )}
+                </>
+
             </div>
 
 
@@ -167,7 +338,7 @@ export default function MainPage() {
 
                                 <div className="bg-white px-6 pt-5 pb-4">
                                     <div className="sm:flex sm:items-start">
-                                        <div className="mt-3 text-center text-left w-full">
+                                        <div className="mt-3 text-left w-full">
                                             <DialogTitle as="h3" className="text-xl font-semibold text-gray-900">
                                                 Новый проект
                                             </DialogTitle>
@@ -185,35 +356,44 @@ export default function MainPage() {
 
                                                 <label className="block">
                                                     <span className="text-xs uppercase text-gray-500">Файл</span>
-                                                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
+                                                    <div
+                                                        className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
                                                         <div className="text-center">
-                                                            <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
+                                                            <PhotoIcon aria-hidden="true"
+                                                                       className="mx-auto size-12 text-gray-300"/>
                                                             <div className="mt-4 text-sm/6 text-gray-600">
                                                                 <label
                                                                     htmlFor="file-upload"
                                                                     className="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-blue-500"
                                                                 >
-                                                                    <span className={"text-center"}>Загрузить файл</span>
-                                                                    <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                                                    <span
+                                                                        className={"text-center"}>Загрузить файл</span>
+                                                                    <input id="file-upload" name="file-upload"
+                                                                           type="file" className="sr-only"/>
                                                                 </label>
                                                             </div>
-                                                            <p className="text-xs/5 text-gray-600">MP4, MKV, WAV, MP3 не более 256MB</p>
+                                                            <p className="text-xs/5 text-gray-600">MP4, MKV, WAV, MP3 не
+                                                                более 256MB</p>
                                                         </div>
                                                     </div>
                                                 </label>
 
                                                 <label className="block">
                                                     <span className="text-xs uppercase text-gray-500">Субтитры (опционально)</span>
-                                                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
+                                                    <div
+                                                        className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
                                                         <div className="text-center">
-                                                            <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
+                                                            <PhotoIcon aria-hidden="true"
+                                                                       className="mx-auto size-12 text-gray-300"/>
                                                             <div className="mt-4 text-sm/6 text-gray-600">
                                                                 <label
                                                                     htmlFor="file-upload"
                                                                     className="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-blue-500"
                                                                 >
-                                                                    <span className={"text-center"}>Загрузить файл</span>
-                                                                    <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                                                    <span
+                                                                        className={"text-center"}>Загрузить файл</span>
+                                                                    <input id="file-upload" name="file-upload"
+                                                                           type="file" className="sr-only"/>
                                                                 </label>
                                                             </div>
                                                             <p className="text-xs/5 text-gray-600">TXT, SRT</p>
@@ -221,7 +401,8 @@ export default function MainPage() {
                                                     </div>
                                                 </label>
 
-                                                {apiError && <p className="text-sm text-red-600">{apiError}</p>}
+                                                {projectApiError &&
+                                                    <p className="text-sm text-red-600">{projectApiError}</p>}
                                             </div>
                                         </div>
                                     </div>
@@ -259,7 +440,7 @@ export default function MainPage() {
 
                                 <div className="bg-white px-6 pt-5 pb-4">
                                     <div className="sm:flex sm:items-start">
-                                        <div className="mt-3 text-center text-left w-full">
+                                        <div className="mt-3 text-left w-full">
                                             <DialogTitle as="h3" className="text-xl font-semibold text-gray-900">
                                                 Новая папка
                                             </DialogTitle>
@@ -275,7 +456,8 @@ export default function MainPage() {
                                                         <p className="mt-1 text-xs text-red-500">{folderErrors.folderName.message}</p>}
                                                 </label>
 
-                                                {apiError && <p className="text-sm text-red-600">{apiError}</p>}
+                                                {folderApiError &&
+                                                    <p className="text-sm text-red-600">{folderApiError}</p>}
                                             </div>
                                         </div>
                                     </div>
@@ -292,6 +474,32 @@ export default function MainPage() {
                             </form>
                         </DialogPanel>
                     </div>
+                </div>
+            </Dialog>
+
+            <Dialog open={mediaOpen} onClose={setMediaOpen} className="relative z-10">
+                <DialogBackdrop className="fixed inset-0 bg-black/50"/>
+                <div className="fixed inset-0 flex items-center justify-center p-4">
+                    <DialogPanel className="bg-white rounded-lg shadow-lg w-full max-w-md">
+                        <div className="px-6 pt-6">
+                            <DialogTitle className="text-xl font-semibold">Загрузить медиа</DialogTitle>
+                            <input
+                                type="file"
+                                accept="audio/*,video/*"
+                                onChange={e => setSelectedFile(e.target.files?.[0] || null)}
+                                className="mt-4 block w-full text-sm text-gray-600"
+                            />
+                            {mediaError && <p className="mt-2 text-sm text-red-600">{mediaError}</p>}
+                        </div>
+                        <div className="px-6 py-4 bg-gray-50 text-right">
+                            <button
+                                onClick={onSubmitMedia}
+                                className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800"
+                            >
+                                Загрузить
+                            </button>
+                        </div>
+                    </DialogPanel>
                 </div>
             </Dialog>
 

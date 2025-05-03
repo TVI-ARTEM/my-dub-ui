@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "gen:api": "openapi --input http://localhost:5108/swagger/v1/swagger.json --output ./src/api --client axios"
+    "gen:api:auth": "openapi --input http://localhost:5108/swagger/v1/swagger.json --output ./src/api/auth --client axios",
+    "gen:api:projects": "openapi --input http://localhost:5109/swagger/v1/swagger.json --output ./src/api/projects --client axios"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",

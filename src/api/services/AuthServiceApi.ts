@@ -1,5 +1,5 @@
-import {AuthService} from "./AuthService.ts";
 import {$auth_api_host} from "./client.ts";
+import {AuthService} from "../auth";
 
 export class AuthServiceApi {
 
@@ -16,5 +16,4 @@ export class AuthServiceApi {
     public static async auth(token: string) {
         return AuthService.getApiUsersAuth(token, $auth_api_host);
     }
-
 }
