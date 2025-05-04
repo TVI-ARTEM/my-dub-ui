@@ -3,12 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { SegmentInfo } from './SegmentInfo';
-export type ProjectInfo = {
-    id?: number;
-    name?: string | null;
-    mediaId?: string | null;
-    processing?: boolean;
+export type UpdateSegmentsRequest = {
     segments?: Array<SegmentInfo> | null;
-    modifiedAt?: string;
 };
 
