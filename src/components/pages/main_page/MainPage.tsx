@@ -11,6 +11,7 @@ import {FolderResponse} from "../../../api/projects";
 import {useNavigate} from "react-router-dom";
 import {AxiosError} from "axios";
 import React from "react";
+import {FilesServiceApi} from "../../../api/services/FilesServiceApi.ts";
 
 const folderSchema = z.object({
     folderName: z.string().trim().min(3, 'Минимум 3 символа')
@@ -126,16 +127,32 @@ export default function MainPage() {
         setProjectMediaError("");
         setProjectApiError('')
         try {
-            toast.success(`Project created ${data.projectName}`)
+            const projFileId = await FilesServiceApi.uploadFile(selectedProjectFile)
+
+            await ProjectServiceApi.createProject(data.projectName, projFileId, selectedSubtFile ?? undefined, currFolder.id ?? undefined)
 
             resetProjectValues({projectName: ""})
-
             setSelectedProjectFile(null);
             setSelectedSubtFile(null);
             setProjectOpen(false)
+
+            await refreshFolder();
         } catch (e: any) {
             setFolderApiError(e?.body ?? "Ошибка при создании")
 
+        }
+    }
+
+    const onRemoveProject = async (projectId: number) => {
+        try {
+            await ProjectServiceApi.removeProject(projectId)
+
+            await refreshFolder()
+
+            toast.success("Проект удален")
+
+        } catch {
+            toast.error("Ошибка удаления")
         }
     }
 
@@ -182,7 +199,7 @@ export default function MainPage() {
                     </nav>
                     <div className="flex space-x-3">
                         {
-                            (currFolder?.children && currFolder.children.length > 0) && (
+                            (currFolder?.children && currFolder.children.length > 0 || currFolder?.projects && currFolder?.projects.length > 0) && (
                                 <>
                                     <button
                                         onClick={() => setProjectOpen(true)}
@@ -204,10 +221,10 @@ export default function MainPage() {
 
                 <>
                     {
-                        (currFolder?.children && currFolder.children.length > 0) && (
+                        (currFolder?.children && currFolder.children.length > 0 || currFolder?.projects && currFolder?.projects.length > 0) && (
                             <div className="grid gap-6" style={{gridTemplateColumns: "repeat(8, minmax(126px, 1fr))"}}>
                                 {
-                                    currFolder.children.map((item) => (
+                                    currFolder?.children && currFolder.children.map((item) => (
                                         <div className={"flex flex-col"}>
                                             <div
                                                 key={item.id}
@@ -262,13 +279,66 @@ export default function MainPage() {
 
                                     ))
                                 }
+
+                                {
+                                    currFolder?.projects && currFolder.projects.map((item) => (
+                                        <div className={"flex flex-col"}>
+                                            <div
+                                                key={item.id}
+                                                onClick={() => {
+                                                    toast.error("Пока еще не готово")
+                                                }}
+                                                className="min-w-[126px] p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center hover:bg-gray-50">
+
+                                                <svg
+                                                    className="w-[75%] h-[75%] min-w-[128px] min-h-[128px] text-gray-800 dark:text-white"
+                                                    aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 56 56">
+                                                    <path
+                                                        d="M 24.5898 49.5742 C 25.5508 49.5742 26.2539 48.8477 26.2539 47.9336 L 26.2539 8.0664 C 26.2539 7.1524 25.5508 6.4258 24.5898 6.4258 C 23.6524 6.4258 22.9492 7.1524 22.9492 8.0664 L 22.9492 47.9336 C 22.9492 48.8477 23.6524 49.5742 24.5898 49.5742 Z M 38.2305 44.8867 C 39.1680 44.8867 39.8711 44.1367 39.8711 43.2227 L 39.8711 12.7773 C 39.8711 11.8633 39.1680 11.1133 38.2305 11.1133 C 37.2930 11.1133 36.5664 11.8633 36.5664 12.7773 L 36.5664 43.2227 C 36.5664 44.1367 37.2930 44.8867 38.2305 44.8867 Z M 17.7930 41.0898 C 18.7305 41.0898 19.4336 40.3633 19.4336 39.4492 L 19.4336 16.5508 C 19.4336 15.6367 18.7305 14.9102 17.7930 14.9102 C 16.8320 14.9102 16.1289 15.6367 16.1289 16.5508 L 16.1289 39.4492 C 16.1289 40.3633 16.8320 41.0898 17.7930 41.0898 Z M 31.4102 38.5586 C 32.3476 38.5586 33.0742 37.8320 33.0742 36.9180 L 33.0742 19.0820 C 33.0742 18.1680 32.3476 17.4414 31.4102 17.4414 C 30.4727 17.4414 29.7695 18.1680 29.7695 19.0820 L 29.7695 36.9180 C 29.7695 37.8320 30.4727 38.5586 31.4102 38.5586 Z M 45.0508 34.3633 C 45.9883 34.3633 46.6914 33.6133 46.6914 32.6992 L 46.6914 23.3008 C 46.6914 22.3867 45.9883 21.6367 45.0508 21.6367 C 44.0898 21.6367 43.3867 22.3867 43.3867 23.3008 L 43.3867 32.6992 C 43.3867 33.6133 44.0898 34.3633 45.0508 34.3633 Z M 10.9727 32.5117 C 11.9102 32.5117 12.6133 31.7851 12.6133 30.8711 L 12.6133 25.1289 C 12.6133 24.2149 11.9102 23.4883 10.9727 23.4883 C 10.0117 23.4883 9.3086 24.2149 9.3086 25.1289 L 9.3086 30.8711 C 9.3086 31.7851 10.0117 32.5117 10.9727 32.5117 Z"/>
+
+                                                </svg>
+
+
+                                                <p className="text-xl mb-3 font-normal text-wrap text-gray-900 dark:text-gray-50">{item.name}</p>
+
+
+                                            </div>
+
+                                            <div
+                                                className="min-w-[126px] px-6 py-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex items-center justify-center gap-2">
+                                                <svg
+                                                    className="w-6 h-6 text-gray-800 dark:text-white hover:text-blue-400"
+                                                    // onClick={() => onRemoveFolder(`${currFolder.path ? currFolder.path + "/" : ""}${item.name}`)}
+                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round"
+                                                          strokeLinejoin="round" strokeWidth="2"
+                                                          d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                                </svg>
+
+                                                <svg
+                                                    className="w-6 h-6 text-gray-800 dark:text-white hover:text-red-400"
+                                                    onClick={() => onRemoveProject(item.id!)}
+                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round"
+                                                          strokeLinejoin="round" strokeWidth="2"
+                                                          d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                    ))
+                                }
                             </div>
                         )
                     }
                 </>
 
                 <>
-                    {(currFolder?.children?.length ?? 0) === 0 && (
+                    {((currFolder?.children?.length ?? 0) === 0 && (currFolder?.projects?.length ?? 0) === 0) && (
                         <div className="flex items-center justify-center gap-5" style={{flexGrow: 1}}>
                             <div
                                 onClick={() => setFolderOpen(true)}

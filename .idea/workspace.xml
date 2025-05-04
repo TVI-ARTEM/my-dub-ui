@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/src/api/services/ContentServiceApi.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env.local" beforeDir="false" afterPath="$PROJECT_DIR$/.env.local" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/FilesServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/FilesServiceApi.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +80,7 @@
       <workItem from="1746103092582" duration="30141000" />
       <workItem from="1746215449493" duration="2971000" />
       <workItem from="1746266318221" duration="21143000" />
-      <workItem from="1746360624677" duration="1495000" />
+      <workItem from="1746360624677" duration="3419000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />
