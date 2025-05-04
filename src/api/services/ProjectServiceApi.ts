@@ -19,7 +19,18 @@ export class ProjectServiceApi {
         return ProjectService.deleteApiFolders(folderId, $projects_api_host);
     }
 
-    public static async uploadFile(path: string, selectedFile: File) {
-        return ProjectService.postApiUpload(getLogin(), path, {file: selectedFile}, $projects_api_host);
+    public static async createProject(name: string, mediaId: string, subtitleFile: File, parentId?: number) {
+        return ProjectService.postApiProjects(
+            {
+                Login: getLogin(),
+                Name: name,
+                ParentId: parentId,
+                MediaId: mediaId,
+                SegmentsFile: subtitleFile
+            }, $projects_api_host);
+    }
+
+    public static async removeProject(projectId: number) {
+        return ProjectService.deleteApiProjects(projectId, $projects_api_host);
     }
 }

@@ -13,6 +13,12 @@ const $projects_api_host = axios.create(
     }
 )
 
+const $files_api_host = axios.create(
+    {
+        baseURL: import.meta.env.VITE_CONTENT_API_URL
+    }
+)
+
 // const $authHost = axios.create(
 //     {
 //         baseURL: import.meta.env.VITE_AUTH_API_URL
@@ -27,5 +33,5 @@ const $projects_api_host = axios.create(
 // $authHost.interceptors.request.use(authInterceptor)
 
 export {
-    $auth_api_host, $projects_api_host
+    $auth_api_host, $projects_api_host, $files_api_host
 }
