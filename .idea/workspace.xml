@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/projects/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/projects/models/FolderDto.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/projects/models/FolderResponse.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/models/FolderResponse.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +75,7 @@
       <updated>1746103090135</updated>
       <workItem from="1746103092582" duration="30141000" />
       <workItem from="1746215449493" duration="2971000" />
-      <workItem from="1746266318221" duration="16978000" />
+      <workItem from="1746266318221" duration="20583000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />
@@ -97,7 +93,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746223475136</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update">
+      <option name="closed" value="true" />
+      <created>1746308831712</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746308831712</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,9 +121,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="init project" />
+    <MESSAGE value="update api" />
+    <MESSAGE value="update api" />
     <MESSAGE value="update" />
-    <MESSAGE value="update api" />
-    <MESSAGE value="update api" />
-    <option name="LAST_COMMIT_MESSAGE" value="update api" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>

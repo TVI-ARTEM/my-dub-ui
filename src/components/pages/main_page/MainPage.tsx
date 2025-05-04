@@ -32,6 +32,7 @@ export default function MainPage() {
     } = useForm<FormFolderData>({resolver: zodResolver(folderSchema)})
 
     const {
+        reset: resetProjectValues,
         register: createProjectRegister,
         handleSubmit: handleCreateProject,
         formState: {errors: projectErrors, isSubmitting: projectIsSubmitting},
@@ -49,29 +50,11 @@ export default function MainPage() {
 
     const [currFolder, setCurrFolder] = useState<FolderResponse>({})
 
-    const [mediaOpen, setMediaOpen] = useState(false);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [mediaError, setMediaError] = useState("");
+    const [selectedProjectFile, setSelectedProjectFile] = useState<File | null>(null);
+    const [selectedSubtFile, setSelectedSubtFile] = useState<File | null>(null);
+    const [projectMediaError, setProjectMediaError] = useState("");
 
     const navigate = useNavigate()
-
-    const onSubmitMedia = async () => {
-        if (!selectedFile) {
-            setMediaError("Выберите файл.");
-            return;
-        }
-        setMediaError("");
-        try {
-            await ProjectServiceApi.uploadFile(currentPath, selectedFile)
-
-            toast.success("Медиа загружено");
-            setMediaOpen(false);
-            setSelectedFile(null);
-        } catch (e: any) {
-            console.log(e.body)
-            setMediaError(e.message);
-        }
-    };
 
     const refreshFolder = async () => {
         try {
@@ -135,11 +118,24 @@ export default function MainPage() {
     }
 
     const onCreateProject = async (data: FormProjectData) => {
+
+        if (!selectedProjectFile) {
+            setProjectMediaError("Выберите файл.");
+            return;
+        }
+        setProjectMediaError("");
         setProjectApiError('')
         try {
             toast.success(`Project created ${data.projectName}`)
+
+            resetProjectValues({projectName: ""})
+
+            setSelectedProjectFile(null);
+            setSelectedSubtFile(null);
+            setProjectOpen(false)
         } catch (e: any) {
-            setProjectApiError(e?.body ?? "Ошибка при создании")
+            setFolderApiError(e?.body ?? "Ошибка при создании")
+
         }
     }
 
@@ -199,12 +195,6 @@ export default function MainPage() {
                                         className="px-4 py-2 bg-white border font-medium border-gray-500 rounded hover:bg-gray-50"
                                     >
                                         Новая папка
-                                    </button>
-                                    <button
-                                        onClick={() => setMediaOpen(true)}
-                                        className="px-4 py-2 bg-white border border-gray-200 rounded hover:bg-gray-50"
-                                    >
-                                        Загрузить медиа
                                     </button>
                                 </>
                             )
@@ -338,7 +328,7 @@ export default function MainPage() {
 
                                 <div className="bg-white px-6 pt-5 pb-4">
                                     <div className="sm:flex sm:items-start">
-                                        <div className="mt-3 text-left w-full">
+                                        <div className="mt-3 w-full">
                                             <DialogTitle as="h3" className="text-xl font-semibold text-gray-900">
                                                 Новый проект
                                             </DialogTitle>
@@ -357,20 +347,27 @@ export default function MainPage() {
                                                 <label className="block">
                                                     <span className="text-xs uppercase text-gray-500">Файл</span>
                                                     <div
-                                                        className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
+                                                        className="cursor-pointer mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
                                                         <div className="text-center">
                                                             <PhotoIcon aria-hidden="true"
                                                                        className="mx-auto size-12 text-gray-300"/>
-                                                            <div className="mt-4 text-sm/6 text-gray-600">
+                                                            <div
+                                                                className="flex flex-col items-center mt-4 text-sm/6 text-gray-600 ">
                                                                 <label
                                                                     htmlFor="file-upload"
-                                                                    className="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-blue-500"
+                                                                    className="relative  rounded-md bg-white font-semibold text-blue-600 focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-blue-500"
                                                                 >
                                                                     <span
                                                                         className={"text-center"}>Загрузить файл</span>
-                                                                    <input id="file-upload" name="file-upload"
-                                                                           type="file" className="sr-only"/>
+                                                                    <input
+                                                                        type="file"
+                                                                        accept=".mp4,.mkv,.avi,.wav,.mp3"
+                                                                        onChange={e => setSelectedProjectFile(e.target.files?.[0] || null)}
+                                                                        className="sr-only"
+                                                                    />
                                                                 </label>
+                                                                <span>{selectedProjectFile && selectedProjectFile.name}</span>
+                                                                <span>{!selectedProjectFile && "Выберите файл..."}</span>
                                                             </div>
                                                             <p className="text-xs/5 text-gray-600">MP4, MKV, WAV, MP3 не
                                                                 более 256MB</p>
@@ -381,20 +378,26 @@ export default function MainPage() {
                                                 <label className="block">
                                                     <span className="text-xs uppercase text-gray-500">Субтитры (опционально)</span>
                                                     <div
-                                                        className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
-                                                        <div className="text-center">
+                                                        className="cursor-pointer mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
+                                                        <div className="text-center ">
                                                             <PhotoIcon aria-hidden="true"
                                                                        className="mx-auto size-12 text-gray-300"/>
-                                                            <div className="mt-4 text-sm/6 text-gray-600">
+                                                            <div className="flex flex-col mt-4 text-sm/6 text-gray-600">
                                                                 <label
                                                                     htmlFor="file-upload"
-                                                                    className="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-blue-500"
+                                                                    className="relative rounded-md bg-white font-semibold text-blue-600 focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-blue-500"
                                                                 >
                                                                     <span
                                                                         className={"text-center"}>Загрузить файл</span>
-                                                                    <input id="file-upload" name="file-upload"
-                                                                           type="file" className="sr-only"/>
+                                                                    <input
+                                                                        type="file"
+                                                                        accept=".txt,.srt"
+                                                                        onChange={e => setSelectedSubtFile(e.target.files?.[0] || null)}
+                                                                        className="sr-only"
+                                                                    />
                                                                 </label>
+                                                                <span>{selectedSubtFile && selectedSubtFile.name}</span>
+                                                                <span>{!selectedSubtFile && "Выберите файл..."}</span>
                                                             </div>
                                                             <p className="text-xs/5 text-gray-600">TXT, SRT</p>
                                                         </div>
@@ -403,6 +406,9 @@ export default function MainPage() {
 
                                                 {projectApiError &&
                                                     <p className="text-sm text-red-600">{projectApiError}</p>}
+
+                                                {projectMediaError &&
+                                                    <p className="text-sm text-red-600">{projectMediaError}</p>}
                                             </div>
                                         </div>
                                     </div>
@@ -440,7 +446,7 @@ export default function MainPage() {
 
                                 <div className="bg-white px-6 pt-5 pb-4">
                                     <div className="sm:flex sm:items-start">
-                                        <div className="mt-3 text-left w-full">
+                                        <div className="mt-3 w-full">
                                             <DialogTitle as="h3" className="text-xl font-semibold text-gray-900">
                                                 Новая папка
                                             </DialogTitle>
@@ -476,35 +482,6 @@ export default function MainPage() {
                     </div>
                 </div>
             </Dialog>
-
-            <Dialog open={mediaOpen} onClose={setMediaOpen} className="relative z-10">
-                <DialogBackdrop className="fixed inset-0 bg-black/50"/>
-                <div className="fixed inset-0 flex items-center justify-center p-4">
-                    <DialogPanel className="bg-white rounded-lg shadow-lg w-full max-w-md">
-                        <div className="px-6 pt-6">
-                            <DialogTitle className="text-xl font-semibold">Загрузить медиа</DialogTitle>
-                            <input
-                                type="file"
-                                accept="audio/*,video/*"
-                                onChange={e => setSelectedFile(e.target.files?.[0] || null)}
-                                className="mt-4 block w-full text-sm text-gray-600"
-                            />
-                            {mediaError && <p className="mt-2 text-sm text-red-600">{mediaError}</p>}
-                        </div>
-                        <div className="px-6 py-4 bg-gray-50 text-right">
-                            <button
-                                onClick={onSubmitMedia}
-                                className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800"
-                            >
-                                Загрузить
-                            </button>
-                        </div>
-                    </DialogPanel>
-                </div>
-            </Dialog>
-
         </>
-
-
     )
 }
