@@ -248,8 +248,9 @@ export default function MainPage() {
                                                 </svg>
 
 
-                                                <p className="text-xl mb-3 font-normal text-wrap text-gray-900 dark:text-gray-50">{item.name}</p>
-
+                                                <p className="text-xl mb-3 font-normal truncate w-full text-center text-gray-900 dark:text-gray-50">
+                                                    {item.name}
+                                                </p>
 
                                             </div>
 
@@ -286,7 +287,9 @@ export default function MainPage() {
                                             <div
                                                 key={item.id}
                                                 onClick={() => {
-                                                    toast.error("Пока еще не готово")
+                                                    const path = `/editor/${item.id}`
+
+                                                    navigate(path)
                                                 }}
                                                 className="min-w-[126px] p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center justify-center hover:bg-gray-50">
 
@@ -300,8 +303,9 @@ export default function MainPage() {
 
                                                 </svg>
 
-
-                                                <p className="text-xl mb-3 font-normal text-wrap text-gray-900 dark:text-gray-50">{item.name}</p>
+                                                <p className="text-xl mb-3 font-normal truncate w-full text-center text-gray-900 dark:text-gray-50">
+                                                    {item.name}
+                                                </p>
 
 
                                             </div>

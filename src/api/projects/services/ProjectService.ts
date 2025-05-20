@@ -2,15 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type {CreateFolderRequest} from '../models/CreateFolderRequest';
-import type {FolderResponse} from '../models/FolderResponse';
-import type {ProjectInfo} from '../models/ProjectInfo';
-import type {RenameFolderRequest} from '../models/RenameFolderRequest';
-import type {UpdateNameRequest} from '../models/UpdateNameRequest';
-import type {UpdateSegmentsRequest} from '../models/UpdateSegmentsRequest';
-import type {CancelablePromise} from '../core/CancelablePromise';
-import {OpenAPI} from '../core/OpenAPI';
-import {request as __request} from '../core/request';
+import type { CreateFolderRequest } from '../models/CreateFolderRequest';
+import type { FolderResponse } from '../models/FolderResponse';
+import type { ProjectInfo } from '../models/ProjectInfo';
+import type { RenameFolderRequest } from '../models/RenameFolderRequest';
+import type { UpdateNameRequest } from '../models/UpdateNameRequest';
+import type { UpdateSegmentRequest } from '../models/UpdateSegmentRequest';
+import type { UpdateSegmentsRequest } from '../models/UpdateSegmentsRequest';
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 import {AxiosInstance} from "axios";
 
 export class ProjectService {
@@ -142,6 +143,7 @@ export class ProjectService {
             Name: string;
             MediaId: string;
             SegmentsFile?: Blob;
+            IsSubTranslated?: boolean;
         },
         client: AxiosInstance
     ): CancelablePromise<any> {
@@ -155,6 +157,7 @@ export class ProjectService {
 
     /**
      * @param id
+     * @param isSubTranslated
      * @param requestBody
      * @param client
      * @returns any OK
@@ -162,12 +165,39 @@ export class ProjectService {
      */
     public static putApiProjectsSegments(
         id: number,
+        isSubTranslated: boolean,
         requestBody: UpdateSegmentsRequest,
         client: AxiosInstance
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
-            method: 'PUT',
+            method: 'POST',
             url: '/api/projects/{id}/segments',
+            path: {
+                'id': id,
+            },
+            query: {
+                'isSubTranslated': isSubTranslated,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        }, client);
+    }
+
+    /**
+     * @param id
+     * @param requestBody
+     * @param client
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static putApiProjectsSegment(
+        id: number,
+        requestBody: UpdateSegmentRequest,
+        client: AxiosInstance
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/projects/{id}/segment',
             path: {
                 'id': id,
             },
@@ -175,7 +205,45 @@ export class ProjectService {
             mediaType: 'application/json',
         }, client);
     }
-
+    /**
+     * @param id
+     * @param segmentId
+     * @param client
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static postApiProjectsSegment(
+        id: number,
+        segmentId: string,
+        client: AxiosInstance
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/projects/{id}/segment/{segmentId}',
+            path: {
+                'id': id,
+                'segmentId': segmentId,
+            },
+        }, client);
+    }
+    /**
+     * @param id
+     * @param client
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static postApiProjectsSegmentsGenerate(
+        id: number,
+        client: AxiosInstance
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/projects/{id}/segments/generate',
+            path: {
+                'id': id,
+            },
+        }, client);
+    }
     /**
      * @param id
      * @param requestBody
@@ -196,6 +264,29 @@ export class ProjectService {
             },
             body: requestBody,
             mediaType: 'application/json',
+        }, client);
+    }
+    /**
+     * @param id
+     * @param trueDub
+     * @param client
+     * @returns string OK
+     * @throws ApiError
+     */
+    public static getApiProjectsExport(
+        id: number,
+        trueDub: boolean,
+        client: AxiosInstance
+    ): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/projects/{id}/export',
+            path: {
+                'id': id,
+            },
+            query: {
+                'trueDub': trueDub,
+            },
         }, client);
     }
 }

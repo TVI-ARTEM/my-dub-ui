@@ -6,7 +6,7 @@ export class FilesServiceApi {
         return FilesService.postApiUpload({file: file}, $files_api_host);
     }
 
-    public static getUrl(mediaId: string) {
-        return `${import.meta.env.VITE_CONTENT_API_URL}/api/${mediaId}`;
+    public static async getUrl(mediaId: string) {
+        return FilesService.getApiStream(mediaId, $files_api_host);
     }
 }

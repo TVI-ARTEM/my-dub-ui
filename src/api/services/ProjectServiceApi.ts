@@ -19,6 +19,10 @@ export class ProjectServiceApi {
         return ProjectService.deleteApiFolders(folderId, $projects_api_host);
     }
 
+    public static async getProject(id: number) {
+        return ProjectService.getApiProjects(id, $projects_api_host);
+    }
+
     public static async createProject(name: string, mediaId: string, subtitleFile?: File, parentId?: number) {
         return ProjectService.postApiProjects(
             {

@@ -3,9 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 export type SegmentInfo = {
+    id?: string | null;
     startMs?: number;
     endMs?: number;
+    speaker?: number;
     transcribe?: string | null;
-    translate?: string | null;
+    translationRu?: string | null;
+    accentRu?: string | null;
+    audioMediaId?: string | null;
 };
 

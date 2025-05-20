@@ -44,4 +44,22 @@ export class FilesService {
             },
         }, client);
     }
+    /**
+     * @param key
+     * @param client
+     * @returns string OK
+     * @throws ApiError
+     */
+    public static getApiStream(
+        key: string,
+        client: AxiosInstance,
+    ): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/stream/{key}',
+            path: {
+                'key': key,
+            },
+        }, client);
+    }
 }
