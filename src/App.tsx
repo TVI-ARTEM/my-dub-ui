@@ -1,9 +1,9 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
-import LoginPage from "./components/pages/login_page/LoginPage.tsx";
-import PrivateRoute from "./components/PrivateRoute.tsx";
-import MainPage from "./components/pages/main_page/MainPage.tsx";
 import {Toaster} from "react-hot-toast";
-import EditorPage from "./components/pages/editor_page/EditorPage.tsx";
+import EditorPage from "@/components/pages/editor_page/EditorPage.tsx";
+import LoginPage from './components/pages/login_page/LoginPage';
+import PrivateRoute from './components/PrivateRoute';
+import MainPage from "@/components/pages/main_page/MainPage.tsx";
 
 export default function App() {
     return (

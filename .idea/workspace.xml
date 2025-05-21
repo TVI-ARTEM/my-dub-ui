@@ -4,12 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/.env.local" beforeDir="false" afterPath="$PROJECT_DIR$/.env.local" afterDir="false" />
+    <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update service">
+      <change afterPath="$PROJECT_DIR$/src/api/projects/models/UpdateSegmentRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/EditorPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/ClipInfoPanel.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/ClipItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/CustomControls.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/Playhead.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/TimeRuler.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/Timeline.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/TrackRow.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/VideoPlayer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/button.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/card.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/input.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/label.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/scroll-area.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/textarea.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/time-spinner.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/constants.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/time.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/utils.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/FilesServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/FilesServiceApi.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +46,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -36,29 +62,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/HSE/MyDub/my-dub-ui/src/api/services",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\HSE\\MyDub\\my-dub-ui\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/HSE/MyDub/my-dub-ui/src/components/pages/editor_page/components&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\HSE\\MyDub\\my-dub-ui\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\HSE\MyDub\my-dub-ui\src\api\services" />
+      <recent name="D:\HSE\MyDub\my-dub-ui\src\components\pages\editor_page\components" />
+      <recent name="D:\HSE\MyDub\my-dub-ui\src\lib" />
       <recent name="D:\HSE\MyDub\my-dub-ui\public" />
+      <recent name="D:\HSE\MyDub\my-dub-ui\src" />
+      <recent name="D:\HSE\MyDub\my-dub-ui\src\components\pages\main_page\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\HSE\MyDub\my-dub-ui\src\components\ui" />
+      <recent name="D:\HSE\MyDub\my-dub-ui\src\components\pages\editor_page" />
       <recent name="D:\HSE\MyDub\my-dub-ui\public" />
       <recent name="D:\HSE\MyDub\my-dub-ui\src\components\pages\login_page" />
     </key>
@@ -80,7 +111,15 @@
       <workItem from="1746103092582" duration="30141000" />
       <workItem from="1746215449493" duration="2971000" />
       <workItem from="1746266318221" duration="21143000" />
-      <workItem from="1746360624677" duration="3419000" />
+      <workItem from="1746360624677" duration="3718000" />
+      <workItem from="1746809394873" duration="608000" />
+      <workItem from="1747059304512" duration="10165000" />
+      <workItem from="1747146282501" duration="7335000" />
+      <workItem from="1747253949589" duration="1575000" />
+      <workItem from="1747764629612" duration="5550000" />
+      <workItem from="1747834847199" duration="5197000" />
+      <workItem from="1747840634456" duration="1527000" />
+      <workItem from="1747842213260" duration="615000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />
@@ -114,7 +153,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746317748945</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update service">
+      <option name="closed" value="true" />
+      <created>1747768827888</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747768827888</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +184,7 @@
     <MESSAGE value="update api" />
     <MESSAGE value="update api" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="update service" />
+    <option name="LAST_COMMIT_MESSAGE" value="update service" />
   </component>
 </project>
