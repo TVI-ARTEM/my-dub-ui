@@ -6,13 +6,13 @@ import type {CreateFolderRequest} from '../models/CreateFolderRequest';
 import type {FolderResponse} from '../models/FolderResponse';
 import type {ProjectInfo} from '../models/ProjectInfo';
 import type {RenameFolderRequest} from '../models/RenameFolderRequest';
-import type {SegmentInfo} from '../models/SegmentInfo';
 import type {UpdateNameRequest} from '../models/UpdateNameRequest';
 import type {UpdateSegmentRequest} from '../models/UpdateSegmentRequest';
 import type {CancelablePromise} from '../core/CancelablePromise';
 import {OpenAPI} from '../core/OpenAPI';
 import {request as __request} from '../core/request';
 import {AxiosInstance} from "axios";
+import {UpdateSegmentsRequest} from "@/api/projects";
 
 export class ProjectService {
     /**
@@ -156,29 +156,20 @@ export class ProjectService {
     }
 
     /**
-     * @param id
-     * @param formData
+     * @param requestBody
      * @param client
      * @returns any OK
      * @throws ApiError
      */
     public static postApiProjectsSegments(
-        id: number,
-        formData: {
-            Segments?: Array<SegmentInfo>;
-            SegmentsFile?: Blob;
-            IsSubTranslated?: boolean;
-        },
+        requestBody: UpdateSegmentsRequest,
         client: AxiosInstance
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/projects/{id}/segments',
-            path: {
-                'id': id,
-            },
-            formData: formData,
-            mediaType: 'multipart/form-data',
+            url: '/api/projects/segments',
+            body: requestBody,
+            mediaType: 'application/json',
         }, client);
     }
 

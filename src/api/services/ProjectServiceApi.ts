@@ -1,5 +1,5 @@
 import {$projects_api_host} from "./client.ts";
-import {CreateFolderRequest, ProjectService, SegmentInfo} from "../projects";
+import {CreateFolderRequest, ProjectService, SegmentInfo, UpdateSegmentsRequest} from "../projects";
 import {getLogin} from "@/lib/cookies.ts";
 
 export class ProjectServiceApi {
@@ -40,8 +40,9 @@ export class ProjectServiceApi {
 
 
     public static async updateSegments(projectId: number, segments: SegmentInfo[]) {
-        await ProjectService.postApiProjectsSegments(projectId, {
-            Segments: segments,
-        }, $projects_api_host);
+        await ProjectService.postApiProjectsSegments({
+            segments: segments,
+            projectId: projectId
+        } as UpdateSegmentsRequest, $projects_api_host);
     }
 }

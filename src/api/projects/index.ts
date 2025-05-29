@@ -15,5 +15,6 @@ export type { RenameFolderRequest } from './models/RenameFolderRequest';
 export type { SegmentInfo } from './models/SegmentInfo';
 export type { UpdateNameRequest } from './models/UpdateNameRequest';
 export type { UpdateSegmentRequest } from './models/UpdateSegmentRequest';
+export type { UpdateSegmentsRequest } from './models/UpdateSegmentsRequest';
 
 export { ProjectService } from './services/ProjectService';
