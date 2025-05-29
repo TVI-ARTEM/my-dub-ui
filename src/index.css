@@ -114,7 +114,17 @@
     * {
         @apply border-border outline-ring/50;
     }
+
     body {
         @apply bg-background text-foreground;
     }
+}
+
+.audio-segment_label {
+    color: ghostwhite;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    @apply items-center justify-center font-medium drop-shadow-lg;
+
+    font-size: large;
+
 }

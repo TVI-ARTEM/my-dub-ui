@@ -1,9 +1,10 @@
-import {useEffect, useRef} from "react";
-import {ChevronUp, ChevronDown} from "lucide-react";
-import {withMask} from "use-mask-input";
-import {fmtTime, parseTimeShort, round01} from "@/lib/time.ts";
-import {Input} from "./input.tsx";
-import {Button} from "./button.tsx";
+import React, { useEffect, useRef, useCallback } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ChevronUp, ChevronDown } from "lucide-react";
+import { withMask } from "use-mask-input";
+import { toClipInfoTimeString, parseTime } from "@/utils/time";
+import { round } from "@/utils/rnd";
 
 interface Props {
     value: number;
@@ -13,59 +14,64 @@ interface Props {
     onChange: (v: number) => void;
 }
 
-export default function TimeSpinner({
-                                        value,
-                                        min = 0,
-                                        max = Infinity,
-                                        step = 0.01,
-                                        onChange,
-                                    }: Props) {
-
+function TimeSpinnerImpl({
+                             value,
+                             min = 0,
+                             max = Infinity,
+                             step = 0.01,
+                             onChange,
+                         }: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
 
-    /* синхронизируем поле, только если НЕ редактируем его прямо сейчас */
+
     useEffect(() => {
-        if (
-            inputRef.current &&
-            document.activeElement !== inputRef.current
-        ) {
-            inputRef.current.value = fmtTime(value);
+        const el = inputRef.current;
+
+        if (!el) return;
+
+        withMask("99:99.99")(el);
+    }, []);
+
+
+    useEffect(() => {
+        const el = inputRef.current;
+
+        if (el && document.activeElement !== el) {
+            el.value = toClipInfoTimeString(value);
         }
     }, [value]);
 
-    const commit = () => {
-        if (!inputRef.current) return;
-        let t = parseTimeShort(inputRef.current.value);
+
+    const commit = useCallback(() => {
+        const el = inputRef.current;
+
+        if (!el) return;
+
+        let t = parseTime(el.value);
         t = Math.max(min, Math.min(t, max));
-        t = round01(t);
+        t = round(t, 2);
+
         onChange(t);
-        inputRef.current.value = fmtTime(t);
-    };
 
-    const inc = () => {
-        const nv = round01(Math.min(value + step, max));
-        onChange(nv);
-    };
+        el.value = toClipInfoTimeString(t);
+    }, [min, max, onChange]);
 
-    const dec = () => {
-        const nv = round01(Math.max(value - step, min));
-        onChange(nv);
-    };
+    const inc = useCallback(() => {
+        onChange(round(Math.min(value + step, max), 2));
+    }, [value, step, max, onChange]);
+
+    const dec = useCallback(() => {
+        onChange(round(Math.max(value - step, min), 2));
+    }, [value, step, min, onChange]);
 
     return (
-        <div className="inline-flex items-stretch gap-1">
+        <div className="inline-flex items-stretch gap-2">
             <Input
-                ref={(el) => {
-                    inputRef.current = el;
-                    if (el) withMask("99:99.99")(el);
-                }}
+                ref={inputRef}
                 className="w px-2 text-center"
-                // value={str}
-                // onChange={(e) => setStr(e.target.value)}
-                onBlur={() => commit}
+                onBlur={commit}
                 onKeyDown={(e) => e.key === "Enter" && commit()}
                 placeholder="MM:SS.CS"
-                //ref={withMask("99:99.99")}
             />
             <div className="flex flex-col">
                 <Button
@@ -75,7 +81,7 @@ export default function TimeSpinner({
                     onClick={inc}
                     aria-label="Increase time"
                 >
-                    <ChevronUp className="h-4 w-4"/>
+                    <ChevronUp className="h-4 w-4" />
                 </Button>
                 <Button
                     size="icon"
@@ -84,9 +90,21 @@ export default function TimeSpinner({
                     onClick={dec}
                     aria-label="Decrease time"
                 >
-                    <ChevronDown className="h-4 w-4"/>
+                    <ChevronDown className="h-4 w-4" />
                 </Button>
             </div>
         </div>
     );
 }
+
+function propsAreEqual(prev: Props, next: Props) {
+    return (
+        prev.value === next.value &&
+        prev.min === next.min &&
+        prev.max === next.max &&
+        prev.step === next.step &&
+        prev.onChange === next.onChange
+    );
+}
+
+export const TimeSpinner = React.memo(TimeSpinnerImpl, propsAreEqual);

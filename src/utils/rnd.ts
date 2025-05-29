@@ -1,0 +1,1 @@
+export const round = (t: number, precision: number): number => +t.toFixed(precision);
