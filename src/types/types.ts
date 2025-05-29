@@ -17,6 +17,7 @@ export interface TimelineState {
     duration: number;   // вся композиция, сек
     playhead: number;   // текущее время, сек
     textClips: Clip[];  // субтитры/оверлеи
+    origClips: Clip[];  // субтитры/оверлеи
 }
 
 export interface Segment extends Clip {

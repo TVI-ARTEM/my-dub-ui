@@ -35,9 +35,9 @@ export default function Timeline({
                                      minDurationSec,
                                      onSwapClip
                                  }: Props) {
-    const { duration, playhead } = state;
+    const {duration, playhead} = state;
 
-    console.log(duration, pxPerSec)
+    // console.log(duration, pxPerSec)
     const timelinePx = duration * pxPerSec;
 
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -76,7 +76,7 @@ export default function Timeline({
                 <div
                     ref={tracksRef}
                     className="grid gap-y-2 pl-10 pr-10 py-2 auto-rows-min"
-                    style={{ minWidth: timelinePx }}
+                    style={{minWidth: timelinePx}}
                 >
                     <TrackRow
                         pxPerSec={pxPerSec}
@@ -112,7 +112,7 @@ export default function Timeline({
                 />
             </section>
 
-            <ScrollBar orientation="horizontal" />
+            <ScrollBar orientation="horizontal"/>
         </ScrollArea>
     );
 }

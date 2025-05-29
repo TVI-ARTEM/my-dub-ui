@@ -39,7 +39,11 @@ export class ProjectServiceApi {
     }
 
 
-    public static async getProjects(projectId: number, segments: SegmentInfo[]) {
-        await ProjectService.postApiProjectsSegments(projectId, {segments: segments} as UpdateSegmentsRequest, $projects_api_host);
+    public static async updateSegments(projectId: number, segments: SegmentInfo[]) {
+        await ProjectService.postApiProjectsSegments(projectId, {
+            segments: segments,
+            segmentsFile: null,
+            isSubTranslated: false
+        } as UpdateSegmentsRequest, $projects_api_host);
     }
 }

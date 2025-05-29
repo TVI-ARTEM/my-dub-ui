@@ -96,6 +96,15 @@ export function useTimelineState(initial: TimelineState) {
         []
     );
 
+    const updateClips = useCallback(
+        (clips: Clip[]) => {
+            setState(prev => {
+
+                return {...prev, textClips: clips, origClips: clips};
+            });
+        },
+        []
+    );
 
     return {
         state,
@@ -104,6 +113,7 @@ export function useTimelineState(initial: TimelineState) {
         updateTextClip,
         addTextClip,
         removeTextClip,
-        swapTextClips
+        swapTextClips,
+        updateClips,
     };
 }

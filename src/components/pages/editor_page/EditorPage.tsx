@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ProjectServiceApi} from "@/api/services/ProjectServiceApi.ts";
 import {AxiosError} from "axios";
 import toast from "react-hot-toast";
@@ -15,30 +15,35 @@ export default function EditorPage() {
     const [currMediaUrl, setcurrMediaUrl] = useState<string>("")
     const [timeLineState, setTimeLineState] = useState<TimelineState | null>(null)
     const navigate = useNavigate();
-    const currentId = Number(decodeURIComponent(
-        location.pathname.replace(/^\/editor\/?/, '').trim()
-    ))
-    const refreshProject = async () => {
+
+    const refreshProject = useCallback(async () => {
         try {
+            const currentId = Number(decodeURIComponent(
+                location.pathname.replace(/^\/editor\/?/, '').trim()
+            ))
+
             const result = await ProjectServiceApi.getProject(currentId);
             const commonMediaUrl = await FilesServiceApi.getUrl(result.mediaId!)
+
+            const clips = await Promise.all(result.segments?.map(
+                async it => ({
+                    id: it.id,
+                    src: it.audioMediaId ? await FilesServiceApi.getUrl(it.audioMediaId) : "",
+                    in: round(it.startMs! / 1000, 2),
+                    out: round(it.endMs! / 1000, 2),
+                    transcript: it.transcribe,
+                    translation: it.translationRu,
+                    speaker: it.speaker,
+                    originalId: it.audioMediaId
+                } as Clip)
+            ) ?? [])
 
             setTimeLineState({
                 projectId: currentId,
                 duration: 0,
                 playhead: 0,
-                textClips: await Promise.all(result.segments?.map(
-                    async it => ({
-                        id: it.id,
-                        src: it.audioMediaId ? await FilesServiceApi.getUrl(it.audioMediaId) : "",
-                        in: round(it.startMs! / 1000, 2),
-                        out: round(it.endMs! / 1000, 2),
-                        transcript: it.transcribe,
-                        translation: it.translationRu,
-                        speaker: it.speaker,
-                        originalId: it.audioMediaId
-                    } as Clip)
-                ) ?? [])
+                textClips: clips,
+                origClips: clips
             })
 
             setcurrMediaUrl(commonMediaUrl)
@@ -51,14 +56,11 @@ export default function EditorPage() {
                 navigate('/')
             }
         }
-    }
+    }, [])
 
     useEffect(() => {
-        (async function () {
-                await refreshProject()
-            }
-        )()
-    }, [currentId, navigate]);
+        refreshProject();
+    }, [refreshProject]);
 
 
     return (

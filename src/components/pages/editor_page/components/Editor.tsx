@@ -1,5 +1,5 @@
-import {useRef} from "react";
-import {Segment, TimelineState, VideoPlayerHandle} from "@/types/types.ts";
+import {useCallback, useEffect, useRef} from "react";
+import {Clip, Segment, TimelineState, VideoPlayerHandle} from "@/types/types.ts";
 import {useTimelineState} from "@/hooks/editor/useTimelineState.ts";
 import {usePlaybackControls} from "@/hooks/editor/usePlaybackControls.ts";
 import {useElementWidth} from "@/hooks/useElementWidth.ts";
@@ -12,6 +12,12 @@ import VideoPlayer from "@/components/pages/editor_page/components/VideoPlayer.t
 import ClipInfoPanel from "@/components/pages/editor_page/components/clips/ClipInfoPanel.tsx";
 import TimelineToolbar from "@/components/pages/editor_page/components/timeline/toolbar/TimelineToolbar.tsx";
 import Timeline from "@/components/pages/editor_page/components/timeline/Timeline.tsx";
+import {ProjectServiceApi} from "@/api/services/ProjectServiceApi.ts";
+import {FilesServiceApi} from "@/api/services/FilesServiceApi.ts";
+import {round} from "@/utils/rnd.ts";
+import {AxiosError} from "axios";
+import toast from "react-hot-toast";
+import {SegmentInfo} from "@/api/projects";
 
 interface Props {
     timeState: TimelineState,
@@ -30,7 +36,8 @@ const Editor = (props: Props) => {
         updateTextClip,
         addTextClip,
         removeTextClip,
-        swapTextClips
+        swapTextClips,
+        updateClips,
     } = useTimelineState(timeState);
 
     const playerRef = useRef<VideoPlayerHandle>(null);
@@ -46,6 +53,79 @@ const Editor = (props: Props) => {
         state.duration,
         state.playhead
     );
+
+    const refreshProject = useCallback(async () => {
+        try {
+            console.log("refresh");
+            const projectInfo = await ProjectServiceApi.getProject(state.projectId);
+
+            const new_clips = await Promise.all(projectInfo.segments?.map(
+                async it => ({
+                    id: it.id,
+                    src: it.audioMediaId ? await FilesServiceApi.getUrl(it.audioMediaId) : "",
+                    in: round(it.startMs! / 1000, 2),
+                    out: round(it.endMs! / 1000, 2),
+                    transcript: it.transcribe,
+                    translation: it.translationRu,
+                    speaker: it.speaker,
+                    originalId: it.audioMediaId
+                } as Clip)
+            ) ?? [])
+
+            const prevIds = new Set(state.origClips.map(c => c.id));
+            const newIds = new Set(new_clips.map(c => c.id));
+
+            const isNew = new_clips.length !== state.origClips.length || [...newIds].some(id => !prevIds.has(id));
+
+            if (isNew) {
+                updateClips(new_clips)
+                return
+            }
+
+            const newById = new Map(new_clips.map(c => [c.id, c]));
+
+            const mergedClips = state.textClips.map(clip => {
+                const fresh = newById.get(clip.id);
+                if (!fresh) return clip;
+
+                if (clip.originalId !== fresh.originalId) {
+                    return {...clip, originalId: fresh.originalId, src: fresh.src};
+                }
+                return clip;
+            });
+
+            updateClips(mergedClips)
+
+            const resultSegs = mergedClips.map(clip => ({
+                id: clip.id,
+                startMs: clip.in * 1000,
+                endMs: clip.out * 1000,
+                speaker: clip.speaker,
+                transcribe: clip.transcript,
+                translationRu: clip.translation,
+                accentRu: null,
+                audioMediaId: clip.originalId
+            } as SegmentInfo))
+
+
+            await ProjectServiceApi.updateSegments(state.projectId, resultSegs);
+        } catch (error: any) {
+            if (error.code !== AxiosError.ERR_NETWORK) {
+                toast.error(error.message)
+            }
+        }
+    }, [state, updateClips])
+
+    const POLL_MS = 5_000;
+
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            refreshProject();
+        }, POLL_MS);
+
+        return () => clearInterval(id);
+    }, [refreshProject]);
 
 
     const timelineWrapRef = useRef<HTMLDivElement>(null);
