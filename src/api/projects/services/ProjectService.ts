@@ -6,9 +6,9 @@ import type {CreateFolderRequest} from '../models/CreateFolderRequest';
 import type {FolderResponse} from '../models/FolderResponse';
 import type {ProjectInfo} from '../models/ProjectInfo';
 import type {RenameFolderRequest} from '../models/RenameFolderRequest';
+import type {SegmentInfo} from '../models/SegmentInfo';
 import type {UpdateNameRequest} from '../models/UpdateNameRequest';
 import type {UpdateSegmentRequest} from '../models/UpdateSegmentRequest';
-import type {UpdateSegmentsRequest} from '../models/UpdateSegmentsRequest';
 import type {CancelablePromise} from '../core/CancelablePromise';
 import {OpenAPI} from '../core/OpenAPI';
 import {request as __request} from '../core/request';
@@ -164,7 +164,11 @@ export class ProjectService {
      */
     public static postApiProjectsSegments(
         id: number,
-        formData: UpdateSegmentsRequest,
+        formData: {
+            Segments?: Array<SegmentInfo>;
+            SegmentsFile?: Blob;
+            IsSubTranslated?: boolean;
+        },
         client: AxiosInstance
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
