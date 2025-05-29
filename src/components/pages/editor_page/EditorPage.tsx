@@ -24,6 +24,7 @@ export default function EditorPage() {
             const commonMediaUrl = await FilesServiceApi.getUrl(result.mediaId!)
 
             setTimeLineState({
+                projectId: currentId,
                 duration: 0,
                 playhead: 0,
                 textClips: await Promise.all(result.segments?.map(
@@ -33,7 +34,9 @@ export default function EditorPage() {
                         in: round(it.startMs! / 1000, 2),
                         out: round(it.endMs! / 1000, 2),
                         transcript: it.transcribe,
-                        translation: it.translationRu
+                        translation: it.translationRu,
+                        speaker: it.speaker,
+                        originalId: it.audioMediaId
                     } as Clip)
                 ) ?? [])
             })

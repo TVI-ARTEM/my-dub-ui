@@ -5,5 +5,7 @@
 import type { SegmentInfo } from './SegmentInfo';
 export type UpdateSegmentsRequest = {
     segments?: Array<SegmentInfo> | null;
+    segmentsFile?: Blob | null;
+    isSubTranslated?: boolean;
 };
 

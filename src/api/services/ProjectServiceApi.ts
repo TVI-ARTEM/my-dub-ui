@@ -1,6 +1,6 @@
 import {$projects_api_host} from "./client.ts";
-import {CreateFolderRequest, ProjectService} from "../projects";
-import {getLogin} from "../../lib/cookies.ts";
+import {CreateFolderRequest, ProjectService, SegmentInfo, UpdateSegmentsRequest} from "../projects";
+import {getLogin} from "@/lib/cookies.ts";
 
 export class ProjectServiceApi {
     public static async getFolders(path: string) {
@@ -36,5 +36,10 @@ export class ProjectServiceApi {
 
     public static async removeProject(projectId: number) {
         return ProjectService.deleteApiProjects(projectId, $projects_api_host);
+    }
+
+
+    public static async getProjects(projectId: number, segments: SegmentInfo[]) {
+        await ProjectService.postApiProjectsSegments(projectId, {segments: segments} as UpdateSegmentsRequest, $projects_api_host);
     }
 }

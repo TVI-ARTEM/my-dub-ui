@@ -2,16 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CreateFolderRequest } from '../models/CreateFolderRequest';
-import type { FolderResponse } from '../models/FolderResponse';
-import type { ProjectInfo } from '../models/ProjectInfo';
-import type { RenameFolderRequest } from '../models/RenameFolderRequest';
-import type { UpdateNameRequest } from '../models/UpdateNameRequest';
-import type { UpdateSegmentRequest } from '../models/UpdateSegmentRequest';
-import type { UpdateSegmentsRequest } from '../models/UpdateSegmentsRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type {CreateFolderRequest} from '../models/CreateFolderRequest';
+import type {FolderResponse} from '../models/FolderResponse';
+import type {ProjectInfo} from '../models/ProjectInfo';
+import type {RenameFolderRequest} from '../models/RenameFolderRequest';
+import type {UpdateNameRequest} from '../models/UpdateNameRequest';
+import type {UpdateSegmentRequest} from '../models/UpdateSegmentRequest';
+import type {UpdateSegmentsRequest} from '../models/UpdateSegmentsRequest';
+import type {CancelablePromise} from '../core/CancelablePromise';
+import {OpenAPI} from '../core/OpenAPI';
+import {request as __request} from '../core/request';
 import {AxiosInstance} from "axios";
 
 export class ProjectService {
@@ -157,16 +157,14 @@ export class ProjectService {
 
     /**
      * @param id
-     * @param isSubTranslated
-     * @param requestBody
+     * @param formData
      * @param client
      * @returns any OK
      * @throws ApiError
      */
-    public static putApiProjectsSegments(
+    public static postApiProjectsSegments(
         id: number,
-        isSubTranslated: boolean,
-        requestBody: UpdateSegmentsRequest,
+        formData: UpdateSegmentsRequest,
         client: AxiosInstance
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
@@ -175,11 +173,8 @@ export class ProjectService {
             path: {
                 'id': id,
             },
-            query: {
-                'isSubTranslated': isSubTranslated,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         }, client);
     }
 
@@ -205,6 +200,7 @@ export class ProjectService {
             mediaType: 'application/json',
         }, client);
     }
+
     /**
      * @param id
      * @param segmentId
@@ -226,6 +222,7 @@ export class ProjectService {
             },
         }, client);
     }
+
     /**
      * @param id
      * @param client
@@ -244,6 +241,7 @@ export class ProjectService {
             },
         }, client);
     }
+
     /**
      * @param id
      * @param requestBody
@@ -266,6 +264,7 @@ export class ProjectService {
             mediaType: 'application/json',
         }, client);
     }
+
     /**
      * @param id
      * @param trueDub

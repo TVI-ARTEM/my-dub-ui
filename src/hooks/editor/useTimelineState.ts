@@ -1,6 +1,7 @@
 import {useCallback, useState} from "react";
 import type {Clip, TimelineState} from "@/types/types";
 import {TIMELINE_STEP} from "@/constants/constants";
+import {v4 as uuidv4} from "uuid";
 
 export function useTimelineState(initial: TimelineState) {
     const [state, setState] = useState(initial);
@@ -35,7 +36,7 @@ export function useTimelineState(initial: TimelineState) {
             if (lastEnd >= s.duration) return s;
             const end = Math.min(lastEnd + defaultLength, s.duration);
             const newClip: Clip = {
-                id: `t${s.textClips.length + 1}`,
+                id: uuidv4(),
                 src: "",
                 in: lastEnd,
                 out: end,

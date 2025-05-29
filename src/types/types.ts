@@ -3,14 +3,17 @@ import type {RefObject} from "react";
 export interface Clip {
     id: string;
     src?: string;
+    originalId?: string;
     in: number;
     out: number;
     trimStart?: number;
     transcript?: string;
     translation?: string;
+    speaker?: number
 }
 
 export interface TimelineState {
+    projectId: number;
     duration: number;   // вся композиция, сек
     playhead: number;   // текущее время, сек
     textClips: Clip[];  // субтитры/оверлеи

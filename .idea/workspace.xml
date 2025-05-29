@@ -5,71 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update service">
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/AudioWaveform.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/Editor.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipInfoPanel.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/Timeline.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/Playhead.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRuler.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRulerMinorTick.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRulerTick.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/ClipActions.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/PlaybackControls.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/TimelineToolbar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/ZoomSelector.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRow.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRowBody.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRowHeader.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/slider.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/spinner.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/constants.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/clips/useClipDrag.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/clips/useClipInfoBounds.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/clips/useClipSegments.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/editor/usePlaybackControls.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/editor/useSegmentAudioSync.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/editor/useSelectedClip.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/editor/useTimelineState.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/editor/useZoom.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/timeline/ruler/useBodyCursor.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/timeline/ruler/usePlayheadDrag.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/timeline/ruler/useTimeRuler.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/timeline/toolbar/useZoomController.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/timeline/toolbar/useZoomOptions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/timeline/useTimelineClick.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/timeline/useTimelineOffset.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useElementWidth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useVideoControl.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useVideoSync.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useWaveSurfer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/rnd.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/time.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/projects/models/UpdateSegmentsRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/models/UpdateSegmentsRequest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/EditorPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/EditorPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/ClipInfoPanel.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/ClipItem.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/CustomControls.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/Playhead.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/TimeRuler.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/Timeline.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/TrackRow.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/VideoPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/VideoPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/card.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/label.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/label.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/scroll-area.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/scroll-area.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/textarea.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/textarea.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/time-spinner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/time-spinner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/constants.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/time.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/types.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/editor/useTimelineState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/editor/useTimelineState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,24 +40,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/HSE/MyDub/my-dub-ui/src/components/pages/editor_page/components&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\HSE\\MyDub\\my-dub-ui\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/HSE/MyDub/my-dub-ui/src/components/pages/editor_page/components",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "D:\\HSE\\MyDub\\my-dub-ui\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\HSE\MyDub\my-dub-ui\src\components\pages\editor_page\components" />
@@ -160,7 +105,7 @@
       <workItem from="1748341963829" duration="1159000" />
       <workItem from="1748440860113" duration="5280000" />
       <workItem from="1748446533510" duration="2221000" />
-      <workItem from="1748528822706" duration="3837000" />
+      <workItem from="1748528822706" duration="12347000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />
@@ -218,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747854334594</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="update service">
+      <option name="closed" value="true" />
+      <created>1748533036562</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748533036562</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
