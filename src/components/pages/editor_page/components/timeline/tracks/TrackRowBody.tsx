@@ -19,7 +19,7 @@ export function TrackRowBody(props: TrackRowBodyProps) {
                     <AudioWaveform
                         mediaElement={props.mediaElement}
                         waveColor={props.waveColor}
-                        volume={0.25}
+                        volume={0.1}
                     />
                 </div>
             </div>

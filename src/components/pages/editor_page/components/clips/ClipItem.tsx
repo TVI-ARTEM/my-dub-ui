@@ -1,10 +1,10 @@
-import type { RefObject } from "react";
-import type { Clip, Segment } from "@/types/types.ts";
-import { TIMELINE_STEP } from "@/constants/constants.ts";
-import { useClipDrag } from "@/hooks/clips/useClipDrag.ts";
-import { useClipSegments } from "@/hooks/clips/useClipSegments.ts";
+import type {RefObject} from "react";
+import type {Clip, Segment} from "@/types/types.ts";
+import {TIMELINE_STEP} from "@/constants/constants.ts";
+import {useClipDrag} from "@/hooks/clips/useClipDrag.ts";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import AudioWaveform from "@/components/pages/editor_page/components/AudioWaveform.tsx";
+import {useClipSegments} from "@/hooks/clips/useClipSegments.ts";
 
 interface Props {
     clip: Clip;
@@ -35,9 +35,10 @@ export default function ClipItem({
                                      index,
                                      length,
                                  }: Props) {
-    const fileDuration = useClipSegments(clip, segmentsRef);
+    let fileDuration = useClipSegments(clip, segmentsRef);
+    fileDuration = null;
 
-    const { onStartMove, onStartResizeLeft, onStartResizeRight, dragMovedRef } =
+    const {onStartMove, onStartResizeLeft, onStartResizeRight, dragMovedRef} =
         useClipDrag({
             clip,
             clips,
@@ -96,7 +97,7 @@ export default function ClipItem({
                       ${selected ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
                     `}
                 >
-                    <ChevronLeft className="text-white" />
+                    <ChevronLeft className="text-white"/>
                 </button>
             )}
 
@@ -114,7 +115,7 @@ export default function ClipItem({
                       ${selected ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
                     `}
                 >
-                    <ChevronRight className="text-white" />
+                    <ChevronRight className="text-white"/>
                 </button>
             )}
 

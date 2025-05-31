@@ -18,6 +18,8 @@ import {round} from "@/utils/rnd.ts";
 import {AxiosError} from "axios";
 import toast from "react-hot-toast";
 import {SegmentInfo} from "@/api/projects";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {Button} from "@/components/ui/button";
 
 interface Props {
     timeState: TimelineState,
@@ -75,7 +77,7 @@ const Editor = (props: Props) => {
             const prevIds = new Set(state.origClips.map(c => c.id));
             const newIds = new Set(new_clips.map(c => c.id));
 
-            const isNew = new_clips.length !== state.origClips.length || [...newIds].some(id => !prevIds.has(id));
+            const isNew = [...newIds].some(id => !prevIds.has(id));
 
             if (isNew) {
                 updateClips(new_clips)
@@ -98,12 +100,12 @@ const Editor = (props: Props) => {
 
             const resultSegs = mergedClips.map(clip => ({
                 id: clip.id,
-                startMs: clip.in * 1000,
-                endMs: clip.out * 1000,
+                startMs: Math.ceil(clip.in * 1000),
+                endMs: Math.ceil(clip.out * 1000),
                 speaker: clip.speaker,
                 transcribe: clip.transcript,
                 translationRu: clip.translation,
-                accentRu: null,
+                accentRu: "",
                 audioMediaId: clip.originalId
             } as SegmentInfo))
 
@@ -116,7 +118,7 @@ const Editor = (props: Props) => {
         }
     }, [state, updateClips])
 
-    const POLL_MS = 5_000;
+    const POLL_MS = 10_000;
 
 
     useEffect(() => {
@@ -176,16 +178,115 @@ const Editor = (props: Props) => {
                             </Card>
                         </div>
 
-                        <ClipInfoPanel
-                            clip={state.textClips.find((c) => c.id === selectedId)}
-                            minStart={minStart}
-                            maxEnd={maxEnd}
-                            fileDuration={
-                                segmentsRef.current.find((s) => s.id === selectedId)
-                                    ?.audioElement?.duration ?? null
-                            }
-                            onChange={updateTextClip}
-                        />
+                        <Tabs defaultValue="projectInfo" className="gap-0">
+                            <TabsList className="w-full p-0 bg-background justify-start border-b rounded-none">
+                                <TabsTrigger
+                                    value="projectInfo"
+                                    className="rounded-none bg-background h-full data-[state=active]:shadow-none border border-transparent border-b-border data-[state=active]:border-border data-[state=active]:border-b-background -mb-[2px] rounded-t-xl"
+                                >
+                                    Проект
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="clipInfo"
+                                    className="rounded-none bg-background h-full data-[state=active]:shadow-none border border-transparent border-b-border data-[state=active]:border-border data-[state=active]:border-b-background -mb-[2px] rounded-t-xl"
+                                >
+                                    Клип
+                                </TabsTrigger>
+
+                            </TabsList>
+                            <TabsContent
+                                value="clipInfo"
+                                className="
+                                border border-border
+                                border-t-0
+                                rounded-b-lg
+                                p-4"
+                            >
+                                <ClipInfoPanel
+                                    clip={state.textClips.find((c) => c.id === selectedId)}
+                                    minStart={minStart}
+                                    maxEnd={maxEnd}
+                                    fileDuration={
+                                        segmentsRef.current.find((s) => s.id === selectedId)
+                                            ?.audioElement?.duration ?? null
+                                    }
+                                    onChange={updateTextClip}
+                                    onGenerate={async (clip) => {
+                                        try {
+                                            await refreshProject();
+
+                                            await ProjectServiceApi.reGenerateSeg(state.projectId, clip.id)
+                                        } catch (error: any) {
+                                            if (error.code !== AxiosError.ERR_NETWORK) {
+                                                toast.error(error.message)
+                                            }
+                                        }
+                                    }}
+                                />
+                            </TabsContent>
+
+                            <TabsContent
+                                value="projectInfo"
+                                className="
+                                border border-border
+                                border-t-0
+                                rounded-b-lg
+                                p-4"
+                            >
+                                <div className="flex flex-col space-y-2">
+                                    <Button
+                                        onClick={async () => {
+                                            try {
+                                                await refreshProject();
+
+                                                const fileLink = await ProjectServiceApi.export(state.projectId)
+
+                                                const link = document.createElement('a');
+                                                link.href = fileLink;
+                                                document.body.appendChild(link);
+                                                link.click();
+                                                document.body.removeChild(link);
+                                            } catch (error: any) {
+                                                if (error.code !== AxiosError.ERR_NETWORK) {
+                                                    toast.error(error.message)
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        Экспортировать
+                                    </Button>
+                                    <Button
+                                        onClick={async () => {
+                                            try {
+                                                await refreshProject();
+
+                                                await ProjectServiceApi.generateSegs(state.projectId)
+                                            } catch (error: any) {
+                                                if (error.code !== AxiosError.ERR_NETWORK) {
+                                                    toast.error(error.message)
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        Сгенерировать
+                                    </Button>
+
+                                    <Button
+                                        onClick={async () => {
+                                            try {
+                                                await refreshProject();
+                                            } catch (error: any) {
+                                                if (error.code !== AxiosError.ERR_NETWORK) {
+                                                    toast.error(error.message)
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        Обновить
+                                    </Button>
+                                </div>
+                            </TabsContent>
+                        </Tabs>
                     </div>
 
                     <div className="min-w-0 mt-2">

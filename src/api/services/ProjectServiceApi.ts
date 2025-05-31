@@ -40,7 +40,6 @@ export class ProjectServiceApi {
 
 
     public static async updateSegments(projectId: number, segments: SegmentInfo[]) {
-        console.log(segments)
         await ProjectService.postApiProjectsSegments({
             segments: segments,
             projectId: projectId
