@@ -8,11 +8,11 @@ import type {ProjectInfo} from '../models/ProjectInfo';
 import type {RenameFolderRequest} from '../models/RenameFolderRequest';
 import type {UpdateNameRequest} from '../models/UpdateNameRequest';
 import type {UpdateSegmentRequest} from '../models/UpdateSegmentRequest';
+import type {UpdateSegmentsRequest} from '../models/UpdateSegmentsRequest';
 import type {CancelablePromise} from '../core/CancelablePromise';
 import {OpenAPI} from '../core/OpenAPI';
 import {request as __request} from '../core/request';
 import {AxiosInstance} from "axios";
-import {UpdateSegmentsRequest} from "@/api/projects";
 
 export class ProjectService {
     /**

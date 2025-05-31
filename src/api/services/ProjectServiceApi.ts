@@ -40,9 +40,24 @@ export class ProjectServiceApi {
 
 
     public static async updateSegments(projectId: number, segments: SegmentInfo[]) {
+        console.log(segments)
         await ProjectService.postApiProjectsSegments({
             segments: segments,
             projectId: projectId
         } as UpdateSegmentsRequest, $projects_api_host);
+    }
+
+    public static async export(projectId: number, trueDub: boolean = true) {
+        const key = await ProjectService.getApiProjectsExport(projectId, trueDub, $projects_api_host);
+
+        return `${import.meta.env.VITE_CONTENT_API_URL}/api/${key}`
+    }
+
+    public static async reGenerateSeg(projectId: number, segmentId: string) {
+        await ProjectService.postApiProjectsSegment(projectId, segmentId, $projects_api_host);
+    }
+
+    public static async generateSegs(projectId: number) {
+        await ProjectService.postApiProjectsSegmentsGenerate(projectId, $projects_api_host);
     }
 }
