@@ -46,8 +46,8 @@ export class ProjectServiceApi {
         } as UpdateSegmentsRequest, $projects_api_host);
     }
 
-    public static async export(projectId: number, trueDub: boolean = true) {
-        const key = await ProjectService.getApiProjectsExport(projectId, trueDub, $projects_api_host);
+    public static async export(projectId: number) {
+        const key = await ProjectService.getApiProjectsExport(projectId, $projects_api_host);
 
         return `${import.meta.env.VITE_CONTENT_API_URL}/api/${key}`
     }

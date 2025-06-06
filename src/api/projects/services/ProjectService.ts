@@ -262,14 +262,12 @@ export class ProjectService {
 
     /**
      * @param id
-     * @param trueDub
      * @param client
      * @returns string OK
      * @throws ApiError
      */
     public static getApiProjectsExport(
         id: number,
-        trueDub: boolean,
         client: AxiosInstance
     ): CancelablePromise<string> {
         return __request(OpenAPI, {
@@ -277,9 +275,6 @@ export class ProjectService {
             url: '/api/projects/{id}/export',
             path: {
                 'id': id,
-            },
-            query: {
-                'trueDub': trueDub,
             },
         }, client);
     }

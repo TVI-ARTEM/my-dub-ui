@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update service">
-      <change afterPath="$PROJECT_DIR$/src/components/ui/tabs.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/Editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/Editor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipInfoPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipInfoPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRowBody.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRowBody.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/projects/models/SegmentInfo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/models/SegmentInfo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,26 +35,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/HSE/MyDub/my-dub-ui/src/components/ui",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.gen:api:projects.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "D:\\HSE\\MyDub\\my-dub-ui\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/HSE/MyDub/my-dub-ui/src/components/ui&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.gen:api:projects.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\HSE\\MyDub\\my-dub-ui\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\HSE\MyDub\my-dub-ui\src\components\ui" />
@@ -124,7 +120,8 @@
       <workItem from="1748446533510" duration="2221000" />
       <workItem from="1748528822706" duration="17968000" />
       <workItem from="1748613260768" duration="7642000" />
-      <workItem from="1748637386463" duration="3028000" />
+      <workItem from="1748637386463" duration="4305000" />
+      <workItem from="1749243220061" duration="270000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />
@@ -222,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748668140538</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="update service">
+      <option name="closed" value="true" />
+      <created>1748669015110</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1748669015110</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

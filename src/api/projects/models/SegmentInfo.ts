@@ -11,5 +11,7 @@ export type SegmentInfo = {
     translationRu?: string | null;
     accentRu?: string | null;
     audioMediaId?: string | null;
+    trueDub?: boolean;
+    externalRefId?: string | null;
 };
 
