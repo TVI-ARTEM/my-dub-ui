@@ -2,7 +2,7 @@ import {useForm} from 'react-hook-form'
 import {z} from 'zod'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {useEffect, useState} from 'react'
-import {useAuth} from "../../../stores/useAuth.ts";
+import {useAuth} from "@/stores/useAuth.ts";
 import {useNavigate} from "react-router-dom";
 
 const schema = z.object({

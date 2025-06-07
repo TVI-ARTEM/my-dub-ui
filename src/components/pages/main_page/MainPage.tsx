@@ -1,17 +1,16 @@
-import {useAuth} from "../../../stores/useAuth.ts";
+import {useAuth} from "@/stores/useAuth.ts";
 import {Dialog, DialogBackdrop, DialogPanel, DialogTitle} from "@headlessui/react";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import {PhotoIcon} from "@heroicons/react/24/solid";
-import {ProjectServiceApi} from "../../../api/services/ProjectServiceApi.ts";
-import {FolderResponse} from "../../../api/projects";
+import {ProjectServiceApi} from "@/api/services/ProjectServiceApi.ts";
+import {FolderResponse} from "@/api/projects";
 import {useNavigate} from "react-router-dom";
 import {AxiosError} from "axios";
-import React from "react";
-import {FilesServiceApi} from "../../../api/services/FilesServiceApi.ts";
+import {FilesServiceApi} from "@/api/services/FilesServiceApi.ts";
+import {TextIcon, VideoIcon} from "lucide-react";
 
 const folderSchema = z.object({
     folderName: z.string().trim().min(3, 'Минимум 3 символа')
@@ -423,7 +422,7 @@ export default function MainPage() {
                                                     <div
                                                         className="cursor-pointer mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
                                                         <div className="text-center">
-                                                            <PhotoIcon aria-hidden="true"
+                                                            <VideoIcon aria-hidden="true"
                                                                        className="mx-auto size-12 text-gray-300"/>
                                                             <div
                                                                 className="flex flex-col items-center mt-4 text-sm/6 text-gray-600 ">
@@ -454,8 +453,8 @@ export default function MainPage() {
                                                     <div
                                                         className="cursor-pointer mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-4">
                                                         <div className="text-center ">
-                                                            <PhotoIcon aria-hidden="true"
-                                                                       className="mx-auto size-12 text-gray-300"/>
+                                                            <TextIcon aria-hidden="true"
+                                                                      className="mx-auto size-12 text-gray-300"/>
                                                             <div className="flex flex-col mt-4 text-sm/6 text-gray-600">
                                                                 <label
                                                                     htmlFor="file-upload"

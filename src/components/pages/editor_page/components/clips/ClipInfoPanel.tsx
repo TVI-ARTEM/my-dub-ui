@@ -41,16 +41,12 @@ export default function ClipInfoPanel({
             <div className="
                     w-full min-w-0 flex
 
-                    /* ≥1024px — одна строка */
                     lg:flex-row lg:space-x-2 lg:space-y-0
 
-                    /* <1024px — два ряда */
                     max-lg:flex-col max-lg:space-y-2 max-lg:space-x-0
 
-                    /* <768px — снова одна строка */
                     max-md:flex-row max-md:space-x-2 max-md:space-y-0
 
-                    /* <340px — опять два ряда */
                     max-[340px]:flex-col max-[340px]:space-y-2 max-[340px]:space-x-0
                 ">
                 <div className="flex-1 min-w-0">
