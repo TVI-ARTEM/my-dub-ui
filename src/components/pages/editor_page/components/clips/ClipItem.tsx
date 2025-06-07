@@ -129,7 +129,7 @@ export default function ClipItem({
                 />
             </div>
 
-            <span className="z-10 px-1 truncate whitespace-no-wrap audio-segment_label ">
+            <span className="z-10 px-1 truncate whitespace-no-wrap audio-segment_label">
                 {clip.transcript}
             </span>
         </div>

@@ -55,6 +55,7 @@ export interface TextTrackRowProps extends BaseTrackRowProps {
     onSelectClip?: (id: string) => void;
     segmentsRef?: RefObject<Segment[]>;
     onSwapClip?: (id: string, dir: "left" | "right") => void;
+    addTextClipAt?: (start: number, defaultLength: number) => void
 }
 
 export type TrackRowProps = AudioTrackRowProps | TextTrackRowProps;
@@ -82,6 +83,7 @@ interface TextTrackRowBodyProps extends BaseTrackRowBoydProps {
     onSelectClip?: (id: string) => void;
     segmentsRef?: RefObject<Segment[]>;
     onSwapClip?: (id: string, dir: "left" | "right") => void;
+    addTextClipAt?: (start: number, defaultLength: number) => void
 }
 
 

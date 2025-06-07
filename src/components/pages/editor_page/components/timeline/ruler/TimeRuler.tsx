@@ -33,7 +33,7 @@ export default function TimeRuler({
             style={{width: totalWidth + offsetPx}}
         >
             {minorTicks.map((tick, idx) => (
-                <TimeRulerMinorTick key={`minor-${idx}`} leftPx={tick.leftPx} />
+                <TimeRulerMinorTick key={`minor-${idx}`} leftPx={tick.leftPx}/>
             ))}
 
             {ticks.map(({time, leftPx}) => (

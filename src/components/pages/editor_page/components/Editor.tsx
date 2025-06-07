@@ -40,6 +40,7 @@ const Editor = (props: Props) => {
         removeTextClip,
         swapTextClips,
         updateClips,
+        addTextClipAt
     } = useTimelineState(timeState);
 
     const playerRef = useRef<VideoPlayerHandle>(null);
@@ -319,6 +320,7 @@ const Editor = (props: Props) => {
                             segmentsRef={segmentsRef}
                             minDurationSec={timelineWidth / pxPerSec}
                             onSwapClip={swapTextClips}
+                            addTextClipAt={addTextClipAt}
                         />
                     </div>
                 </div>

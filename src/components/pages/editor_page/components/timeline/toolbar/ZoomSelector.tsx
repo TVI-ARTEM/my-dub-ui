@@ -13,7 +13,14 @@ interface ZoomSelectorProps {
 export function ZoomSelector({zoom, options, onChange}: ZoomSelectorProps) {
     const zoomValues = useMemo(() => options.map(o => o.value), [options]);
 
-    const {index, zoomIn, zoomOut, onSliderChange, canZoomIn, canZoomOut} = useZoomController(zoomValues, zoom, onChange);
+    const {
+        index,
+        zoomIn,
+        zoomOut,
+        onSliderChange,
+        canZoomIn,
+        canZoomOut
+    } = useZoomController(zoomValues, zoom, onChange);
 
     return (
         <div className="flex items-center gap-2 max-w-full">
@@ -23,7 +30,7 @@ export function ZoomSelector({zoom, options, onChange}: ZoomSelectorProps) {
                 disabled={!canZoomOut}
                 onClick={zoomOut}
             >
-                <ZoomOut className="h-4 w-4" />
+                <ZoomOut className="h-4 w-4"/>
             </Button>
 
             <div className="mx-2">
@@ -43,7 +50,7 @@ export function ZoomSelector({zoom, options, onChange}: ZoomSelectorProps) {
                 disabled={!canZoomIn}
                 onClick={zoomIn}
             >
-                <ZoomIn className="h-4 w-4" />
+                <ZoomIn className="h-4 w-4"/>
             </Button>
         </div>
     );

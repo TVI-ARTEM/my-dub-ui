@@ -14,7 +14,7 @@ interface Props {
 }
 
 const VideoPlayer = forwardRef<VideoPlayerHandle, Props>((props, ref) => {
-    const { src, currentTime, onTimeUpdate, onDuration, onPlay, onPause, onEnded } = props;
+    const {src, currentTime, onTimeUpdate, onDuration, onPlay, onPause, onEnded} = props;
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useVideoSync(videoRef, currentTime);

@@ -14,7 +14,7 @@ export interface AudioWaveformProps {
 const AudioWaveform: React.FC<AudioWaveformProps> = (props: AudioWaveformProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    useWaveSurfer({ containerRef, ...props });
+    useWaveSurfer({containerRef, ...props});
 
     return (
         <div className="h-full w-full flex items-center overflow-hidden select-none">

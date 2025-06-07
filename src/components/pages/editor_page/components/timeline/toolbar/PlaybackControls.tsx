@@ -29,7 +29,7 @@ export function PlaybackControls({
                 onClick={onRewind}
                 aria-label="Rewind 5s"
             >
-                <Rewind className="h-5 w-5" />
+                <Rewind className="h-5 w-5"/>
             </Button>
 
             <Button
@@ -38,7 +38,7 @@ export function PlaybackControls({
                 onClick={onPlayPause}
                 aria-label={playing ? "Pause" : "Play"}
             >
-                {playing ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+                {playing ? <Pause className="h-5 w-5"/> : <Play className="h-5 w-5"/>}
             </Button>
 
             <Button
@@ -47,7 +47,7 @@ export function PlaybackControls({
                 onClick={onForward}
                 aria-label="Forward 5s"
             >
-                <FastForward className="h-5 w-5" />
+                <FastForward className="h-5 w-5"/>
             </Button>
 
             <span className="font-mono text-sm">{toClipInfoTimeString(duration)}</span>

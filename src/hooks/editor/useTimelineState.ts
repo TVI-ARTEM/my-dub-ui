@@ -96,6 +96,30 @@ export function useTimelineState(initial: TimelineState) {
         []
     );
 
+
+    const addTextClipAt = useCallback(
+        (start: number, defaultLength: number) => {
+            setState(s => {
+                // не даём накрывать соседей
+                const sorted = [...s.textClips].sort((a, b) => a.in - b.in);
+                const next = sorted.find(c => c.in >= start);
+                const endCap = next ? Math.min(start + defaultLength, next.in) : Math.min(start + defaultLength, s.duration);
+
+                if (endCap <= start) return s;                  // слишком тесно
+
+                const newClip: Clip = {
+                    id: uuidv4(),
+                    src: "",
+                    in: start,
+                    out: endCap,
+                };
+
+                return {...s, textClips: [...s.textClips, newClip].sort((a, b) => a.in - b.in)};
+            });
+        },
+        [],
+    );
+
     const updateClips = useCallback(
         (clips: Clip[]) => {
             setState(prev => {
@@ -114,6 +138,7 @@ export function useTimelineState(initial: TimelineState) {
         addTextClip,
         removeTextClip,
         swapTextClips,
+        addTextClipAt,
         updateClips,
     };
 }

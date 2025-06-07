@@ -5,10 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update service">
+      <change afterPath="$PROJECT_DIR$/src/hooks/clips/useClipGaps.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/projects/models/SegmentInfo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/models/SegmentInfo.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/AudioWaveform.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/AudioWaveform.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/Editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/Editor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/VideoPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/VideoPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/Timeline.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/Playhead.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/Playhead.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRuler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRuler.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRulerMinorTick.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRulerMinorTick.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRulerTick.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/ruler/TimeRulerTick.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/ClipActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/ClipActions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/PlaybackControls.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/PlaybackControls.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/ZoomSelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/toolbar/ZoomSelector.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRowBody.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRowBody.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRowHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/timeline/tracks/TrackRowHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/editor/useTimelineState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/editor/useTimelineState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/timeline/toolbar/useZoomOptions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/timeline/toolbar/useZoomOptions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +43,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "TVI-ARTEM"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/TVI-ARTEM/my-dub-ui.git",
+    "accountId": "6d12f84a-82d9-4f96-9ece-d08d33246e72"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -35,33 +63,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/HSE/MyDub/my-dub-ui/src/components/ui&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.gen:api:projects.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\HSE\\MyDub\\my-dub-ui\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/HSE/MyDub/my-dub-ui/src/hooks/clips",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.gen:api:projects.executor": "Run",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "D:\\HSE\\MyDub\\my-dub-ui\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\HSE\MyDub\my-dub-ui\src\hooks\clips" />
       <recent name="D:\HSE\MyDub\my-dub-ui\src\components\ui" />
       <recent name="D:\HSE\MyDub\my-dub-ui\src\components\pages\editor_page\components" />
       <recent name="D:\HSE\MyDub\my-dub-ui\src" />
       <recent name="D:\HSE\MyDub\my-dub-ui\src\types" />
-      <recent name="D:\HSE\MyDub\my-dub-ui\src\hooks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\HSE\MyDub\my-dub-ui\src\components\pages\editor_page\components" />
@@ -121,7 +149,8 @@
       <workItem from="1748528822706" duration="17968000" />
       <workItem from="1748613260768" duration="7642000" />
       <workItem from="1748637386463" duration="4305000" />
-      <workItem from="1749243220061" duration="270000" />
+      <workItem from="1749243220061" duration="345000" />
+      <workItem from="1749317040920" duration="2318000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />
@@ -227,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748669015110</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="update service">
+      <option name="closed" value="true" />
+      <created>1749243517967</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1749243517967</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

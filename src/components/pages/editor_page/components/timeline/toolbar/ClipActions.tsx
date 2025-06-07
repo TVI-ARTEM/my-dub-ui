@@ -26,7 +26,7 @@ export function ClipActions({
                 variant="outline"
                 onClick={() => onRemove?.()}
             >
-                <Trash2 className="h-5 w-5" />
+                <Trash2 className="h-5 w-5"/>
             </Button>
         </div>
     );

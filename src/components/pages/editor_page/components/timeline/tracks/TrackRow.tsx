@@ -31,6 +31,7 @@ export default function TrackRow(props: TrackRowProps) {
                 rowHeight={rowHeight}
                 waveColor="#4A7C59"
                 onSwapClip={props.onSwapClip}
+                addTextClipAt={props.addTextClipAt}
             />
         );
 

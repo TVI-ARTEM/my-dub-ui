@@ -3,12 +3,12 @@ import {useRef} from "react";
 import type {Clip, Segment, TimelineState} from "@/types/types.ts";
 import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
 import Playhead from "./ruler/Playhead.tsx";
+import TrackRow from "@/components/pages/editor_page/components/timeline/tracks/TrackRow.tsx";
 import TimeRuler from "./ruler/TimeRuler.tsx";
 import {useTimelineClick} from "@/hooks/timeline/useTimelineClick.ts";
 import {useTimelineOffset} from "@/hooks/timeline/useTimelineOffset.ts";
 import {round} from "@/utils/rnd.ts";
 import {TIMELINE_STEP} from "@/constants/constants.ts";
-import TrackRow from "@/components/pages/editor_page/components/timeline/tracks/TrackRow.tsx";
 
 interface Props {
     state: TimelineState;
@@ -21,6 +21,7 @@ interface Props {
     segmentsRef: RefObject<Segment[]>;
     minDurationSec?: number;
     onSwapClip?: (id: string, dir: "left" | "right") => void;
+    addTextClipAt?: (start: number, defaultLength: number) => void
 }
 
 export default function Timeline({
@@ -33,11 +34,10 @@ export default function Timeline({
                                      mediaElement,
                                      segmentsRef,
                                      minDurationSec,
-                                     onSwapClip
+                                     onSwapClip,
+                                     addTextClipAt
                                  }: Props) {
     const {duration, playhead} = state;
-
-    // console.log(duration, pxPerSec)
     const timelinePx = duration * pxPerSec;
 
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -95,6 +95,7 @@ export default function Timeline({
                         onSelectClip={onSelectTextClip}
                         segmentsRef={segmentsRef}
                         onSwapClip={onSwapClip}
+                        addTextClipAt={addTextClipAt}
                     />
                 </div>
 

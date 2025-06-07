@@ -6,12 +6,12 @@ interface TimeRulerTickProps {
     onSeek?: (t: number) => void;
 }
 
-export function TimeRulerTick({ time, leftPx, onSeek }: TimeRulerTickProps) {
+export function TimeRulerTick({time, leftPx, onSeek}: TimeRulerTickProps) {
     return (
-        <div className="absolute top-0" style={{ left: leftPx }}>
+        <div className="absolute top-0" style={{left: leftPx}}>
 
             {/* Вертикальная линия */}
-            <div className="h-2 w-px bg-muted-foreground/50" />
+            <div className="h-2 w-px bg-muted-foreground/50"/>
 
             {/* Центрированная подпись */}
             <span
