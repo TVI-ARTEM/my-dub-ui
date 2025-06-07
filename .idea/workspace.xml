@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfe42632-49c4-42f1-97ed-9d520ecf79b0" name="Changes" comment="update service">
+      <change afterPath="$PROJECT_DIR$/src/api/projects/models/CreateVoiceRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/projects/models/GetVoicesResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/projects/models/VoiceInfo.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/projects/services/FoldersService.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/projects/services/VoicesService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipInfoPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/editor_page/components/clips/ClipInfoPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/main_page/MainPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/projects/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/projects/services/ProjectService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ProjectServiceApi.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +139,7 @@
       <workItem from="1748613260768" duration="7642000" />
       <workItem from="1748637386463" duration="4305000" />
       <workItem from="1749243220061" duration="345000" />
-      <workItem from="1749317040920" duration="5851000" />
+      <workItem from="1749317040920" duration="7106000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />
@@ -263,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749322952929</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="update service">
+      <option name="closed" value="true" />
+      <created>1749325489366</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1749325489366</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

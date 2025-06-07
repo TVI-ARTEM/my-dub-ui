@@ -1,14 +1,22 @@
 import {$projects_api_host} from "./client.ts";
-import {CreateFolderRequest, ProjectService, SegmentInfo, UpdateSegmentsRequest} from "../projects";
+import {
+    CreateFolderRequest,
+    CreateVoiceRequest,
+    FoldersService,
+    ProjectService,
+    SegmentInfo,
+    UpdateSegmentsRequest,
+    VoicesService
+} from "../projects";
 import {getLogin} from "@/lib/cookies.ts";
 
 export class ProjectServiceApi {
     public static async getFolders(path: string) {
-        return ProjectService.getApiFolders(getLogin(), path, $projects_api_host);
+        return FoldersService.getApiFolders(getLogin(), path, $projects_api_host);
     }
 
     public static async createFolder(name: string, parentId: number | null) {
-        return ProjectService.postApiFolders({
+        return FoldersService.postApiFolders({
             login: getLogin(),
             name: name,
             parentId: parentId
@@ -16,7 +24,7 @@ export class ProjectServiceApi {
     }
 
     public static async removeFolder(folderId: number) {
-        return ProjectService.deleteApiFolders(folderId, $projects_api_host);
+        return FoldersService.deleteApiFolders(folderId, $projects_api_host);
     }
 
     public static async getProject(id: number) {
@@ -58,5 +66,22 @@ export class ProjectServiceApi {
 
     public static async generateSegs(projectId: number) {
         await ProjectService.postApiProjectsSegmentsGenerate(projectId, $projects_api_host);
+    }
+
+    public static async getVoices() {
+        return VoicesService.getApiVoices(getLogin(), $projects_api_host);
+    }
+
+    public static async createVoice(name: string, mediaId: string, groupName: string | null) {
+        return VoicesService.postApiVoices({
+            login: getLogin(),
+            name: name,
+            mediaId: mediaId,
+            groupName: groupName
+        } as CreateVoiceRequest, $projects_api_host);
+    }
+
+    public static async removeVoice(voiceId: number) {
+        return VoicesService.deleteApiVoices(voiceId, $projects_api_host);
     }
 }
