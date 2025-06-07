@@ -33,8 +33,11 @@ export default function EditorPage() {
                     out: round(it.endMs! / 1000, 2),
                     transcript: it.transcribe,
                     translation: it.translationRu,
+                    accentRu: it.accentRu,
                     speaker: it.speaker,
-                    originalId: it.audioMediaId
+                    originalId: it.audioMediaId,
+                    trueDub: it.trueDub,
+                    externalRefId: it.externalRefId,
                 } as Clip)
             ) ?? [])
 
@@ -68,11 +71,11 @@ export default function EditorPage() {
             <div className="max-w px-4 min-h-screen flex flex-col">
                 <div className="relative flex h-16 items-center justify-between border-b">
                     <div className="flex flex-1 items-center">
-                        <div className="flex shrink-0 items-center">
+                        <a className="flex shrink-0 items-center" href={'/'}>
                             <img src="/logo_min_transp.png" className="h-8" alt="MyDub Logo"/>
                             <span
                                 className="ms-2 self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MyDub</span>
-                        </div>
+                        </a>
                     </div>
                     <div className="flex items-center justify-center">
 

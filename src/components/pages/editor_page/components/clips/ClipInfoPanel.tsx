@@ -37,7 +37,7 @@ export default function ClipInfoPanel({
     }
 
     return (
-        <div className="space-y-3">
+        <div className="space-y-3 max-h-[32vh] min-h-[125px]" style={{overflowY: "scroll"}}>
             <div className="
                     w-full min-w-0 flex
 
@@ -87,7 +87,15 @@ export default function ClipInfoPanel({
                 placeholder="Перевод"
                 className="h-12 overflow-auto resize-none w-full break-all whitespace-pre-wrap"
                 value={clip.translation ?? ""}
-                onChange={(e) => onChange?.({...clip, translation: e.target.value})}
+                onChange={(e) => onChange?.({...clip, translation: e.target.value, accentRu: ""})}
+            />
+
+            <Textarea
+                id="accent"
+                placeholder="Фонетический вид"
+                className="h-12 overflow-auto resize-none w-full break-all whitespace-pre-wrap"
+                value={clip.accentRu ?? ""}
+                onChange={(e) => onChange?.({...clip, accentRu: e.target.value})}
             />
 
             <Button

@@ -70,8 +70,11 @@ const Editor = (props: Props) => {
                     out: round(it.endMs! / 1000, 2),
                     transcript: it.transcribe,
                     translation: it.translationRu,
+                    accentRu: it.accentRu,
                     speaker: it.speaker,
-                    originalId: it.audioMediaId
+                    originalId: it.audioMediaId,
+                    trueDub: it.trueDub,
+                    externalRefId: it.externalRefId,
                 } as Clip)
             ) ?? [])
 
@@ -106,8 +109,10 @@ const Editor = (props: Props) => {
                 speaker: clip.speaker,
                 transcribe: clip.transcript,
                 translationRu: clip.translation,
-                accentRu: "",
-                audioMediaId: clip.originalId
+                accentRu: clip.accentRu,
+                audioMediaId: clip.originalId,
+                trueDub: clip.trueDub,
+                externalRefId: clip.externalRefId,
             } as SegmentInfo))
 
 
@@ -161,8 +166,8 @@ const Editor = (props: Props) => {
 
                     <div
                         className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-y-4 md:gap-x-8 overflow-hidden min-w-0">
-                        <div className="min-h-0 items-center justify-start">
-                            <Card className="h-full max-h-[40vh] w-full md:w-auto">
+                        <div className="items-center justify-start">
+                            <Card className="h-full max-h-[40vh] min-h-[200px] w-full md:w-auto">
                                 <CardContent
                                     className="p-0 flex items-center justify-center h-full overflow-hidden">
                                     <VideoPlayer
@@ -179,7 +184,7 @@ const Editor = (props: Props) => {
                             </Card>
                         </div>
 
-                        <Tabs defaultValue="projectInfo" className="gap-0">
+                        <Tabs defaultValue="projectInfo" className="gap-0 h-full max-h-[40vh] min-h-[200px]">
                             <TabsList className="w-full p-0 bg-background justify-start border-b rounded-none">
                                 <TabsTrigger
                                     value="projectInfo"

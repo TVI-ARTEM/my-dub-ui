@@ -9,7 +9,10 @@ export interface Clip {
     trimStart?: number;
     transcript?: string;
     translation?: string;
-    speaker?: number
+    accentRu?: string;
+    speaker?: number;
+    externalRefId?: string;
+    trueDub?: boolean;
 }
 
 export interface TimelineState {
