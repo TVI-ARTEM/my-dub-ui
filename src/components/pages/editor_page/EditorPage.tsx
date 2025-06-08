@@ -16,7 +16,7 @@ export default function EditorPage() {
     const [timeLineState, setTimeLineState] = useState<TimelineState | null>(null)
     const navigate = useNavigate();
 
-    const refreshProject = useCallback(async () => {
+    const getInfo = useCallback(async () => {
         try {
             const currentId = Number(decodeURIComponent(
                 location.pathname.replace(/^\/editor\/?/, '').trim()
@@ -41,12 +41,15 @@ export default function EditorPage() {
                 } as Clip)
             ) ?? [])
 
+            const voices = (await ProjectServiceApi.getVoices()).voiceInfos ?? []
+
             setTimeLineState({
                 projectId: currentId,
                 duration: 0,
                 playhead: 0,
                 textClips: clips,
-                origClips: clips
+                origClips: clips,
+                voices: voices,
             })
 
             setcurrMediaUrl(commonMediaUrl)
@@ -62,8 +65,8 @@ export default function EditorPage() {
     }, [])
 
     useEffect(() => {
-        refreshProject();
-    }, [refreshProject]);
+        getInfo();
+    }, [getInfo]);
 
 
     return (

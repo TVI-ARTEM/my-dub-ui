@@ -40,7 +40,10 @@ const Editor = (props: Props) => {
         removeTextClip,
         swapTextClips,
         updateClips,
-        addTextClipAt
+        addTextClipAt,
+        addVoice,
+        removeVoice,
+        // refreshVoices
     } = useTimelineState(timeState);
 
     const playerRef = useRef<VideoPlayerHandle>(null);
@@ -70,7 +73,7 @@ const Editor = (props: Props) => {
                     out: round(it.endMs! / 1000, 2),
                     transcript: it.transcribe,
                     translation: it.translationRu,
-                    accentRu: it.accentRu,
+                    accentRu: it.accentRu ?? "",
                     speaker: it.speaker,
                     originalId: it.audioMediaId,
                     trueDub: it.trueDub,
@@ -228,6 +231,9 @@ const Editor = (props: Props) => {
                                             }
                                         }
                                     }}
+                                    voices={state.voices}
+                                    onAddVoice={addVoice}
+                                    onDeleteVoice={removeVoice}
                                 />
                             </TabsContent>
 

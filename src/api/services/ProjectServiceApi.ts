@@ -77,7 +77,7 @@ export class ProjectServiceApi {
             login: getLogin(),
             name: name,
             mediaId: mediaId,
-            groupName: groupName
+            groupName: (groupName?.length ?? 0) > 0 ? groupName : null,
         } as CreateVoiceRequest, $projects_api_host);
     }
 

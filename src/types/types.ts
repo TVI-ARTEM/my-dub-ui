@@ -1,4 +1,5 @@
 import type {RefObject} from "react";
+import {VoiceInfo} from "@/api/projects";
 
 export interface Clip {
     id: string;
@@ -17,10 +18,11 @@ export interface Clip {
 
 export interface TimelineState {
     projectId: number;
-    duration: number;   // вся композиция, сек
-    playhead: number;   // текущее время, сек
-    textClips: Clip[];  // субтитры/оверлеи
-    origClips: Clip[];  // субтитры/оверлеи
+    duration: number;
+    playhead: number;
+    textClips: Clip[];
+    origClips: Clip[];
+    voices: VoiceInfo[];
 }
 
 export interface Segment extends Clip {

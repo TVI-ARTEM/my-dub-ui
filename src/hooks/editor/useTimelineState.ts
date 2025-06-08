@@ -2,6 +2,7 @@ import {useCallback, useState} from "react";
 import type {Clip, TimelineState} from "@/types/types";
 import {TIMELINE_STEP} from "@/constants/constants";
 import {v4 as uuidv4} from "uuid";
+import {ProjectServiceApi} from "@/api/services/ProjectServiceApi.ts";
 
 export function useTimelineState(initial: TimelineState) {
     const [state, setState] = useState(initial);
@@ -130,6 +131,47 @@ export function useTimelineState(initial: TimelineState) {
         []
     );
 
+    const addVoice = useCallback(
+        async (name: string, mediaId: string, groupName: string | null) => {
+            await ProjectServiceApi.createVoice(name, mediaId, groupName);
+            const voices = (await ProjectServiceApi.getVoices()).voiceInfos ?? [];
+
+
+            setState(prev => {
+
+                return {...prev, voices: voices};
+            });
+        },
+        []
+    );
+
+    const removeVoice = useCallback(
+        async (voiceId: number) => {
+            await ProjectServiceApi.removeVoice(voiceId);
+            const voices = (await ProjectServiceApi.getVoices()).voiceInfos ?? [];
+
+
+            setState(prev => {
+
+                return {...prev, voices: voices};
+            });
+        },
+        []
+    );
+
+    const refreshVoices = useCallback(
+        async () => {
+            const voices = (await ProjectServiceApi.getVoices()).voiceInfos ?? [];
+
+
+            setState(prev => {
+
+                return {...prev, voices: voices};
+            });
+        },
+        []
+    );
+
     return {
         state,
         seek,
@@ -140,5 +182,8 @@ export function useTimelineState(initial: TimelineState) {
         swapTextClips,
         addTextClipAt,
         updateClips,
+        addVoice,
+        removeVoice,
+        refreshVoices
     };
 }

@@ -137,8 +137,7 @@ export default function MainPage() {
 
             await refreshFolder();
         } catch (e: any) {
-            setFolderApiError(e?.body ?? "Ошибка при создании")
-
+            setProjectApiError(e?.body ?? "Ошибка при создании")
         }
     }
 
